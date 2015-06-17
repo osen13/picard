@@ -29,7 +29,19 @@ import java.io.IOException;
  * @author nhomer
  */
 @CommandLineProgramProperties(
-        usage = "Converts a BED file to an Picard Interval List.",
+        usage = "Converts a BED file to an Picard Interval List.  Bed file is a flexible format used to define data" +
+                " in annotation track lines.  For information on bed files, " +
+                "please see http://genome.ucsc.edu/FAQ/FAQformat.html." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar BedToIntervalList \\<br />" +
+                "     -I=BEDfile1.bed \\<br />" +
+                "     -O=bedintervallist.txt \\<br />" +
+                "     -SD=UCSC.hg19.dict" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Converts a BED file to an Picard Interval List.",
         programGroup = Intervals.class
 )

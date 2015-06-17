@@ -22,8 +22,26 @@ import java.util.List;
  */
 @CommandLineProgramProperties(
         usage = "Takes an input BAM and reference sequence and runs one or more Picard " +
-                "metrics modules at the same time to cut down on I/O. Currently all programs are run with " +
-                "default options and fixed output extesions, but this may become more flexible in future.",
+                "metrics modules at the same time to cut down on I/O.  These include CollectAlignmentSummaryMetrics, " +
+                "CollectInsertSizeMetrics, QualityScoreDistribution,  MeanQualityByCycle, and " +
+                "CollectBaseDistributionByCycle.  Produces a pdf and a txt file for each tool with the exception of the " +
+                "CollectAlignmentSummaryMetrics tool, which outputs only a txt file.  To view the \"txt\" files, add " +
+                " \".txt\" to the suffix of each output file (but not the \".pdf\" files)." +
+                "<br /><br />" +
+                "" +
+                "Currently all programs are run with default options and fixed output extensions, " +
+                "but this may become more flexible in future.  Reference sequence file is required." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar MeanQualityByCycle \\<br />" +
+                "     -I=input.bam \\<br />" +
+                "     -O=MM_output.txt \\<br />" +
+                "     -R=Reference.fasta <br /> " +
+                "</pre>" +
+                "<hr />"
+        ,
+
         usageShort = "A \"meta-metrics\" calculating program that produces multiple metrics for the provided SAM/BAM",
         programGroup = Metrics.class
 )
@@ -129,7 +147,7 @@ public class CollectMultipleMetrics extends CommandLineProgram {
 
                 return program;
             }
-        };
+        }
 
     }
 

@@ -23,7 +23,17 @@ import java.util.List;
 )
 public class CompareMetrics extends CommandLineProgram {
 
-    static final String USAGE = "Compare two metrics files";
+    static final String USAGE = "Compares the headers of the two input metrics files.  Outputs can be either equal" +
+            " or not equal. <br /> "  +
+
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar CompareMetrics \\<br />" +
+            "     -Mymetricfile1.txt \\<br />" +
+            "     -Mymetricfile2.txt" +
+            "</pre>" +
+            "<hr />"
+    ;
 
     @PositionalArguments(minElements = 2, maxElements = 2)
     public List<File> metricsFiles;

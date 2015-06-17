@@ -44,7 +44,18 @@ import java.util.List;
  */
 @CommandLineProgramProperties(
         usage = "Lifts over an interval list from one reference build to another. Based on UCSC liftOver." +
-                " Uses a UCSC chain file to guide the liftOver.",
+                " Uses a UCSC chain file to guide the liftOver." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar LiftOverIntervalList \\<br />" +
+                "     -I=intervallist.vcf \\<br />" +
+                "     -O=liftedintervallist.txt \\<br />" +
+                "     -SD=ucsc.hg19.dict \\<br />" +
+                "     -CHAIN=b37tohg19.chain" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Lifts over an interval list from one reference build to another",
         programGroup = Intervals.class
 )

@@ -45,12 +45,29 @@ import java.io.File;
  *
  * @author Martha Borkan
  */
+
+
 @CommandLineProgramProperties(
-        usage = "Collects quality yield metrics, a set of metrics that quantify the quality and yield of sequence data from a " +
-                "SAM/BAM input file.",
-        usageShort = "Collects a set of metrics that quantify the quality and yield of sequence data from the provided SAM/BAM",
+        usage = "CollectQualityYieldMetrics This tool collects quality yield metrics, a set of metrics that quantify " +
+                "the quality and yield of sequence data from a SAM/BAM input file.  Creates bins that group both the" +
+                "total number of bases by machine-assigned quality score and those with particular quality scores that" +
+                "have also passed filters.  Either original (OQ) the default, or the recalibrated (QUAL) base-quality" +
+                "scores can be used."
+                +
+                "<h4>Usage Example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CollectQualityYieldMetrics \\<br /> " +
+                "     -I=Input.bam \\<br /> "+
+                "     -O=QualityYieldMetrics.txt \\<br />" +
+                "</pre>" +
+                "For detailed explanations of the output metrics, please see: " +
+                "https://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectQualityYieldMetrics.QualityYieldMetrics " +
+                "<hr />"
+        ,
+        usageShort = "Collects quality yield metrics, a set of metrics that quantify the quality and yield of sequence data from a SAM/BAM input file",
         programGroup = Metrics.class
 )
+
 public class CollectQualityYieldMetrics extends CommandLineProgram {
 
     @Option(shortName = StandardOptionDefinitions.INPUT_SHORT_NAME,

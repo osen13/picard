@@ -17,13 +17,39 @@ import java.util.Set;
  * more information
  */
 @CommandLineProgramProperties(
-        usage = "Calculates a set of metrics to Illumina Truseq Custom Amplicon sequencing from an aligned SAM" +
-                "or BAM file. If a reference sequence is provided, AT/GC dropout metrics will " +
-                "be calculated, and the PER_TARGET_COVERAGE option can be used to output GC and " +
-                "mean coverage information for every target.",
+        usage = "TruSeq Custom Amplicon (TSCA) is an Illumina kit that allows researchers to sequence targeted " +
+                "regions of interest of a genome.  Although, there are many applications for using this targeted " +
+                "approach, it is frequently used for genomic regions of high or low GC. (http://www.illumina.com/content/dam/illumina-marketing/documents/products/datasheets/datasheet_truseq_custom_amplicon.pdf)." +
+                "<br /><br />" +
+                "CollectTargetedPcrMetrics calculates a set of metrics to TSCA sequencing from an aligned SAM or " +
+                "BAM file.  If a reference sequence is provided, AT/GC dropout metrics will be calculated, " +
+                "and the PER_TARGET_COVERAGE option can be used to output GC and mean coverage information " +
+                "for every target.  The AT/GC dropout metrics indicate the degree of inadequate coverage of a " +
+                "particular region based on it's AT or GC content." +
+                "" +
+                "<h4>Usage Example</h4>" +
+                "<pre>" +
+                "   java -jar picard.jar CollectTargetedPcrMetrics \\<br /> " +
+                "        -I=input.bam \\<br />" +
+                "        -O=PCRMetrics.bam \\<br />" +
+                "        -R=ReferenceSequence.fasta \\<br />" +
+                "        -AMPLICON_INTERVALS=Ampliconintervallist.vcf \\<br />" +
+                "        -TARGET_INTERVALS=Targetedintervallist.vcf" +
+                "</pre>" +
+                "" +
+                "" +
+                "For explanations of the output metrics, see " +
+                "http://broadinstitute.github.io/picard/picard-metric-definitions.html#TargetedPcrMetrics" +
+                "<hr />"
+                ,
         usageShort = "Produces Targeted PCR-related metrics given the provided SAM/BAM",
         programGroup = Metrics.class
+
+
+
+
 )
+
 public class CollectTargetedPcrMetrics extends CollectTargetedMetrics<TargetedPcrMetrics, TargetedPcrMetricsCollector> {
 
     @Option(shortName = "AI", doc = "An interval list file that contains the locations of the baits used.")

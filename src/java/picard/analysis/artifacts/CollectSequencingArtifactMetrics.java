@@ -53,12 +53,68 @@ import static htsjdk.samtools.util.CodeUtil.getOrElse;
  *
  */
 @CommandLineProgramProperties(
-        usage = CollectSequencingArtifactMetrics.USAGE,
-        usageShort = CollectSequencingArtifactMetrics.USAGE,
+        usage = "This tool examines two sources of sequencing errors, bait-bias and pre-adapter artifacts resulting " +
+                "from hybrid selection protocols.  Hybrid selection enables selection of specific sequences from a pool" +
+                " of genomic DNA for targeted sequencing analyses (doi:10.1038/nbt.1523).  Typical applications include" +
+                " the selection of exonic sequences or pathogen sequences in complex biological samples using a" +
+                " hybridization pull-down assay.  Briefly, RNA (or sometimes DNA) molecules (baits) are " +
+                "synthesized with biotinylated" +
+                " nucleotides, which are ligands for streptavidin.  The baits are hybridized with sheared genomic" +
+                " DNA (targets) that have been “polished” with synthetic adapters to facilitate PCR cloning downstream." +
+                "  Hybridization of the baits with the denatured targets is followed by selective capture of these" +
+                " RNA:DNA “hybrids” using streptavidin-coated beads or columns.  <br /><br />" +
+
+                "Systematic errors, ultimately leading to sequence bias and incorrect variant calls, can arise at" +
+                " several steps.  For example, the shearing of target genomic DNA leading to oxidation of an amine" +
+                " of guanine at position 8 \"8-oxoguanine\" (doi:10.1093/nar/gks1443).  This is considered a pre-adapter " +
+                "artifact since it can arise as" +
+                " a result of shearing and prior to the ligation of the PCR adapters.  These artifacts occur on the" +
+                " original template strand, before the addition of adapters, so they correlate with read number /" +
+                " orientation in a specific way.  For example, the well-known \"8-oxoguanine\" artifact occurs when a G" +
+                " on the template strand is oxidized, giving it an affinity for binding to A rather than the usual C." +
+                " Thus PCR will introduce apparent G>T substitutions in read 1 and C>A in read 2. In the resulting" +
+                " alignments, a given G>T or C>A observation could either be: 1. a true mutation 2. an 8-oxoguanine artifact" +
+                " 3. some other kind of artifact.  On average, we assume that 1 and 3 will not display this read" +
+                " number / orientation bias, so their contributions will cancel out in the calculation. <br /><br />" +
+                "" +
+                "A second type of bias is known as a single bait bias or a reference bias artifact. These artifacts" +
+                " occur during or after the target selection step, and correlate with substitution rates that are" +
+                " \"biased\", or higher for sites having one base on the reference/positive strand relative to" +
+                " sites having the complementary base on that strand.  For example, a G>T artifact during the target" +
+                " selection step might result in a higher (G>T)/(C>A) substitution rate at sites with a G on the" +
+                " positive strand (and C on the negative), relative to sites with the flip (C positive)/(G negative)." +
+                " This is known as the \"G-Ref\" artifact. <br /><br />" +
+                "" +
+                "This tool produces four files including summary and detail metrics files for both pre-adapter and " +
+                "bait-bias artifacts.  The detail metrics exhaustively show the error rates for each type of base" +
+                " substitution within every possible triplet base configuration.  Error rates associated with these" +
+                " substitutions are Phred-scaled and provided as quality scores, the lower the value, the more" +
+                " likely an alternate base call is due to an artifact.  The summary metrics provide likelihood " +
+                "information on the \"worst-case\" errors. <br />" +
+                "" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CollectSequencingArtifactMetrics \\<br />" +
+                "     -I=Input.bam \\<br />" +
+                "     -O=Artifactmetrics.txt \\<br />" +
+                "     -R=HumanSequence.fasta" +
+                "</pre>" +
+                "" +
+                "For additional information, please see" +
+                "http://broadinstitute.github.io/picard/picard-metric-definitions.html#SequencingArtifactMetrics." +
+                "PreAdapterDetailMetrics <br />" +
+                "http://broadinstitute.github.io/picard/picard-metric-definitions.html#SequencingArtifactMetrics." +
+                "PreAdapterSummaryMetrics <br />" +
+                "http://broadinstitute.github.io/picard/picard-metric-definitions.html#SequencingArtifactMetrics." +
+                "BaitBiasDetailMetrics <br />" +
+                "http://broadinstitute.github.io/picard/picard-metric-definitions.html#SequencingArtifactMetrics." +
+                "BaitBiasSummaryMetrics <br />" +
+                "<hr />"
+        ,
+        usageShort = "Collect metrics to quantify single-base sequencing artifacts.",
         programGroup = Metrics.class
 )
 public class CollectSequencingArtifactMetrics extends SinglePassSamProgram {
-    static final String USAGE = "Collect metrics to quantify single-base sequencing artifacts.";
 
     @Option(doc = "An optional list of intervals to restrict analysis to.", optional = true)
     public File INTERVALS;

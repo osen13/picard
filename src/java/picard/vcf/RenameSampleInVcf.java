@@ -42,7 +42,17 @@ import java.io.File;
 import java.util.EnumSet;
 
 @CommandLineProgramProperties(
-        usage = "Rename a sample within a VCF or BCF.",
+        usage = "Rename a sample within a VCF or BCF." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar RenameSampleInVcf \\<br />" +
+                "     -I=VCF1.vcf \\<br />" +
+                "     -O=VCFsamplerenamed.vcf \\<br />" +
+                "     -NEW_SAMPLE_NAME=Sample123" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Rename a sample within a VCF or BCF.",
         programGroup = VcfOrBcf.class
 )

@@ -22,8 +22,22 @@ import java.util.List;
  */
 @CommandLineProgramProperties(
         usage = "Adds one or more comments to the header of a specified BAM file. Copies the file with the " +
-                "modified header to a specified output file. Note that a block copying method is used to ensure efficient transfer to the " +
-                "output file. SAM files are not supported",
+                "modified header to a specified output file. Note that a block copying method is used to ensure " +
+                "efficient transfer to the " +
+                "output file. SAM files are not supported.<br />"          +
+                "" +
+                "" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar AddCommentsToBam \\<br />" +
+                "     -I=InputBAM.bam \\<br />" +
+                "     -O=ModifiedBam.bam \\<br />" +
+                "     -C=Some_text" +
+                "</pre>" +
+                "" +
+                "<hr />"
+
+        ,
         usageShort = "Adds comments to the header of a BAM file",
         programGroup = SamOrBam.class
 )

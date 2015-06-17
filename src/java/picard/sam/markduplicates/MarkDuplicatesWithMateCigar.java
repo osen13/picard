@@ -58,7 +58,32 @@ import java.util.*;
  */
 @CommandLineProgramProperties(
         usage = "Examines aligned records in the supplied SAM or BAM file to locate duplicate molecules. " +
-                "All records are then written to the output file with the duplicate records flagged.",
+                "All records are then written to the output file with the duplicate records flagged.<br /><br />" +
+                "" +
+                "An even better duplication marking algorithm that handles all cases including clipped and gapped" +
+                " alignments." +
+                " <p/>"     +
+        "This tool differs with MarkDuplicates as it may break ties differently.  Furthermore, as it is a one-pass" +
+                " algorithm, it cannot know the program records contained in the file that should be chained in" +
+                " advance.  Therefore it will only be able to examine the header" +
+                " to attempt to infer those program group records that have no associated previous program" +
+                " group record. If a read is encountered without a program record, or not one as previously" +
+                " defined, it will not be updated." +
+                " <p/>" +
+                " This tool will also not work with alignments that have large gaps or skips, such as those" +
+                " from RNA-seq data.  This is due to the need to buffer small genomic windows to ensure" +
+                " integrity of the duplicate marking, while large skips (ex. skipping introns) in the" +
+                " alignment records would force making that window very large, thus exhausting memory." +
+
+        "<h4>Usage example:</h4>" +
+        "<pre>" +
+                "java -jar picard.jar MarkDuplicatesWithMateCigar \\<br />" +
+                "     -I=MyBAM.bam \\<br />" +
+                "     -O=dupswmatecig.bam \\<br />" +
+                "     -M=dupswmatecigmetrics.txt" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Examines aligned records in the supplied SAM or BAM file to locate duplicate molecules.",
         programGroup = SamOrBam.class
 )

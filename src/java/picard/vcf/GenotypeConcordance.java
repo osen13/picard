@@ -62,14 +62,69 @@ import static htsjdk.variant.variantcontext.VariantContext.Type.*;
  * @author George Grant
  */
 @CommandLineProgramProperties(
-        usage = "Calculates the concordance between genotype data for two samples in two different VCFs - one being considered the truth (or reference) " +
-                "the other being considered the call.  The concordance is broken into separate results sections for SNPs and indels.  Summary and detailed statistics are reported\n\n" +
-                "Note that for any pair of variants to compare, only the alleles for the samples under interrogation are considered " +
-                "and MNP, Symbolic, and Mixed classes of variants are not included.",
-        usageShort = "Calculates the concordance between genotype data for two samples in two different VCFs",
+        usage = GenotypeConcordance.USAGE_SUMMARY + GenotypeConcordance.USAGE_DETAILS,
+        usageShort =  GenotypeConcordance.USAGE_SUMMARY,
         programGroup = VcfOrBcf.class
 )
 public class GenotypeConcordance extends CommandLineProgram {
+    static final String USAGE_SUMMARY = "Calculates the concordance between genotype data for samples in two different" +
+            "VCFs, your callset and a standard or 'truthset'.";
+    static final String USAGE_DETAILS = "Genotype concordance is the fraction of correct assigned genotypes divided by the" +
+            " total number of true-positive (TP) variant alleles.  Genotype concordance is calculated by dividing the number of validated " +
+            "genotypes in a call set by the total number of TP alleles.  Validated genotypes are variant " +
+            "genotypes that match a gold-standard data set.  The gold-standard data set can be any curated data set " +
+            "containing variant genotypes that have been cross-validated with multiple technologies " +
+            "e.g. Genome In A Bottle Consortium (GIAB) (https://sites.stanford.edu/abms/giab).  The TP variants are" +
+            " variant alleles that have been validated by a gold-standard database.  In contrast, a false-positive (FP)" +
+            " variant is a called variant allele that has not been validated by a gold-standard data base.  " +
+            "False-negative (FN) variants are variants incorrectly called as reference alleles and true negatives (TN)" +
+            " are simply validated reference allele calls."  +
+
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar GenotypeConcordance \\<br />" +
+            "     -CALL_VCF=/Users/VCF1.vcf \\<br />" +
+            "     -O=/Users/GConcordance.vcf \\<br />" +
+            "     -TRUTH_VCF=/Users/GIAB.vcf \\<br />" +
+            "     -TRUTH_SAMPLE=sample#" +
+            "</pre>" +
+            "" +
+            "<h4>Output Metrics:</h4>" +
+            "Output metrics include GenotypeConcordanceContingencyMetrics, GenotypeConcordanceSummaryMetrics, and " +
+            "GenotypeConcordanceDetailMetrics.  For each set of metrics, the data is broken into separate sections for " +
+            "SNPs and indels.  Note that only SNP and INDEL variants are considered, MNP, Symbolic, and Mixed classes" +
+            " of variants are not included. <br /> <br /> +" +
+
+            "GenotypeConcordanceContingencyMetrics is a class that holds metrics " +
+            "about the Genotype Concordance contingency tables.  Tables include the numbers of true-positive " +
+            "(TP), true-negative (TN), false-positive (FP), and false-negative (FN) variant calls. Please see " +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#GenotypeConcordanceContingencyMetrics" +
+            " for additional details.<br /><br />  " +
+            "" +
+            "GenotypeConcordanceDetailMetrics is a class that holds detailed metrics about Genotype Concordance" +
+            " including the numbers of SNPs and Indels for each contingency.  For example, for variants called as  " +
+            "heterozygous variants, meaning one reference and one variant allele, the tool indicates the numbers of " +
+            "called variant genotypes e.g. HET_REF_VAR1 that match HET_REF_VAR1 the corresponding genotypes in " +
+            "the gold-standard as well as those that do not." +
+            "Please see " +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#GenotypeConcordanceDetailMetrics. " +
+            "<br /><br /> "+
+            "" +
+            "GenotypeConcordanceSummaryMetrics is a class that holds summary metrics about Genotype Concordance " +
+            "including: values for sensitivity, specificity, and positive predictive values.  \"Sensitivity\" is the" +
+            " measurement of variant caller sensitivity and is measured by dividing the number of called validated " +
+            "variants (TP) by the total potential pool of validated variants (TP + FN).  Specificity is a measure of " +
+            "variant calling accuracy and is calculated by dividing the number of valid variant calls (TP) by the" +
+            " entire pool of called variants (TP + FP).<br /><br /> " +
+            "" +
+            "" +
+            " Please see " +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#GenotypeConcordanceSummaryMetrics " +
+            "for additional details metric calculations are calculated." +
+            "" +
+            "<hr />"
+            ;
+
     @Option(shortName = "TV", doc="The VCF containing the truth sample")
     public File TRUTH_VCF;
 

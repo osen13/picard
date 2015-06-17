@@ -59,12 +59,31 @@ import java.util.Set;
  * edited by Kylee Bergin
  */
 @CommandLineProgramProperties(
-        usage = "Tool to collect information about GC bias in the reads in a given BAM file. Computes" +
-                " the number of windows (of size specified by WINDOW_SIZE) in the genome at each GC%" +
-                " and counts the number of read starts in each GC bin.  What is output and plotted is" +
-                " the \"normalized coverage\" in each bin - i.e. the number of reads per window normalized" +
-                " to the average number of reads per window across the whole genome..\n",
-        usageShort = "Collects information about GC bias in the reads in the provided SAM or BAM",
+        usage = "Tool to collect information about GC bias in the reads in a given BAM file." +
+                "<br /> <br /> " +
+                "Guanine and cytosine (GC) base pairs have three hydrogen bonds compared with two for" +
+                " adenine and thymine (AT).  Consequently, this results in different melting temperatures required" +
+                " for the separation of AT- and GC-rich sequences.  Regions encoding genes are have higher proportions" +
+                " of GC nucleotide pairs compared with the total genome." +
+                "<br /> <br />" +
+                "" +
+                "This tool computes the number of windows (of size specified by WINDOW_SIZE) in the genome at each GC% and " +
+                "counts the number of read starts in each GC bin.  'Normalized coverage' in each bin - i.e. the number" +
+                " of reads per window normalized to the average number of reads per window across the whole genome " +
+                "is output and plotted."+
+                "<h4>Usage Example:</h4>"+
+                "<pre>" +
+                "java -jar picard.jar CollectGcBiasMetrics \\<br />"+
+                "     -I=Input.bam \\<br />"+
+                "     -O=GCBiasMetrics.txt \\<br />"+
+                "     -CHART=GCBiasMetrics.pdf \\<br />"+
+                "     -R=ReferenceSequence.fasta"+
+                "</pre>" +
+                "For detailed explanations of the output metrics, please see:" +
+                "https://broadinstitute.github.io/picard/picard-metric-definitions.html#GcBiasMetrics" +
+                "<hr />"
+        ,
+        usageShort = "Collects information regarding GC bias, from a SAM/BAM input file"    ,
         programGroup = Metrics.class
 )
 public class CollectGcBiasMetrics extends SinglePassSamProgram {

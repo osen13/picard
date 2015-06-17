@@ -48,13 +48,39 @@ import java.util.Set;
  * @author Doug Voet (dvoet at broadinstitute dot org)
  */
 @CommandLineProgramProperties(
-        usage = "Reads a SAM or BAM file and writes a file containing metrics about " +
-                "the statistical distribution of insert size (excluding duplicates) " +
-                "and generates a Histogram plot.",
-        usageShort = "Writes insert size distribution metrics for a SAM or BAM file",
+        usage = CollectInsertSizeMetrics.USAGE_SUMMARY,
+        usageShort = CollectInsertSizeMetrics.USAGE_BRIEF,
         programGroup = Metrics.class
 )
 public class CollectInsertSizeMetrics extends SinglePassSamProgram {
+    static final String USAGE_BRIEF = "Metrics about the insert size distribution of a paired-end library";
+    static final String USAGE_SUMMARY = "Metrics about the insert size distribution of a paired-end library, created by the " +
+            "CollectInsertSizeMetrics program and usually written to a file with the extension " +
+            "\".insert_size_metrics.txt\".  In addition the insert size distribution is plotted to a file with the " +
+            "extension \".insert_size_Histogram.pdf\".<br /><br />" +
+            "There are two separate outputs from this tool including distributions of insert sizes as well as " +
+            "grouped information about read pairs and their orientations.  Currently, the tool groups the read " +
+            "pairs into three categories: forward reverse (FR), which are paired-end reads; reverse forward (RF)," +
+            " which are mate pair reads; and reverse-reverse/forward-forward (tandem reads). In general, paired" +
+            " ends tend to be in a FR conformation and have relatively small inserts (~300 - 500 bp), while " +
+            "mate-pair libraries are in a RF conformation, and contain larger inserts (~3 kb).<br /><br />" +
+            "Mate-pair libraries enable improved sequence coverage of genomic regions containing large structural" +
+            " rearrangements.  Additional information on mate-pair and paired-end libraries can be found here:" +
+            " [Data Processing of Nextera Mate Pair Reads on Illumina Sequencing Platforms" +
+            " Pub. No. 770-2012-053 (www.illumina.com)]. <br />" +
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar CollectInsertSizeMetrics \\<br />" +
+            "     -I=/input.bam \\<br />" +
+            "     -O=/output.insert_size_metrics.txt \\<br />" +
+            "     -H=/insert_size_histogram.pdf \\<br />" +
+            "     -M=0.5" +
+            "</pre>"    +
+            "If processing a small file, set the minimum percentage option (M) to 0.5, otherwise an error" +
+            " can be generated. "+
+            "<br /><br />For additional information, see " +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#InsertSizeMetrics" +
+            "<hr />";
     private static final Log log = Log.getInstance(CollectInsertSizeMetrics.class);
     private static final String Histogram_R_SCRIPT = "picard/analysis/insertSizeHistogram.R";
 

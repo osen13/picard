@@ -45,8 +45,18 @@ import java.io.File;
  * @author alecw@broadinstitute.org
  */
 @CommandLineProgramProperties(
-        usage = "Sorts the input SAM or BAM.\n" +
-                "Input and output formats are determined by file extension.",
+        usage = "Sorts the input SAM or BAM by coordinate or some other criteria." +
+                "Input and output formats are determined by file extension." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar SortSam \\<br />" +
+                "     -I=MyBAM.bam \\<br />" +
+                "     -O=SortedSam.bam \\<br />" +
+                "     -SORT_ORDER=coordinate" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Sorts a SAM or BAM file",
         programGroup = SamOrBam.class
 )

@@ -50,7 +50,16 @@ import java.net.URL;
  * @author Martha Borkan
  */
 @CommandLineProgramProperties(
-        usage = "Generates a BAM index (.bai) file.",
+        usage = "Generates a BAM index (.bai) file.  Required for multiple tools including generating statistics" +
+                " on a BAM file e.g. the BamIndexStats tool." +
+
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar BuildBamIndex \\<br />" +
+                "     -I=/Mybamfile.bam" +
+                "</pre>" +
+                "<hr />"
+                ,
         usageShort = "Generates a BAM index (.bai) file",
         programGroup = SamOrBam.class
 )

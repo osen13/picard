@@ -10,8 +10,22 @@ import picard.cmdline.programgroups.Metrics;
  * @author farjoun
  */
 @CommandLineProgramProperties(
-        usage = "Computes a number of metrics that are useful for evaluating coverage and performance of " +
-                "whole genome sequencing experiments. Defaults are different than for CollectWgsMetrics.",
+        usage = "Computes a number of metrics that are useful for evaluating coverage and performance of whole " +
+                "genome sequencing experiments. Defaults are different than for CollectWgsMetrics e.g. lacks baseQ and" +
+                " mappingQ filters and has much higher coverage cap." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CollectRawWgsMetrics \\<br />" +
+                "     -I=MyBAM.bam \\<br />" +
+                "     -O=RAWwgsmetrics.txt \\<br />" +
+                "     -R=ReferenceSeq.fasta \\<br />" +
+                "     -INCLUDE_BQ_HISTOGRAM=true" +
+                "</pre>" +
+                "<hr />" +
+                "For detailed explanations of the output metrics, please see: " +
+        "http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics" +
+        "<hr />",
         usageShort = "Writes whole genome sequencing-related metrics for a SAM or BAM file",
         programGroup = Metrics.class
 )

@@ -38,7 +38,18 @@ import java.io.File;
  * @author ktibbett@broadinstitute.org
  */
 @CommandLineProgramProperties(
-        usage = "Create BFQ files from a BAM file for use by the Maq aligner.",
+        usage = "Bfq is a binary version of the fastq file.  This tool creates BFQ files from a BAM file for use by" +
+                " the Maq aligner" +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar BamToBfq \\<br />" +
+                "     -I=MyBAMfile.bam \\<br />" +
+                "     -ANALYSIS_DIR=FLOWCELL_BARCODE=unit1 \\<br />" +
+                "     -PAIRED_RUN=false" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Create BFQ files from a BAM file for use by the Maq aligner.",
         programGroup = SamOrBam.class
 )

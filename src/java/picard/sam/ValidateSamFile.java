@@ -51,7 +51,15 @@ import java.util.List;
  * @author Doug Voet
  */
 @CommandLineProgramProperties(
-        usage = "Read a SAM or BAM file and report on its validity.",
+        usage = "Read a SAM or BAM file and report on its validity." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar ValidateSamFile \\<br />" +
+                "     -I=MYBAMfile.bam" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Validates a SAM or BAM file",
         programGroup = SamOrBam.class
 )

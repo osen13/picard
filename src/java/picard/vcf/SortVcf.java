@@ -34,7 +34,17 @@ import java.util.List;
 @CommandLineProgramProperties(
         usage = "Sorts one or more VCF files according to the order of the contigs in the header/sequence dictionary and then by coordinate. " +
         "Can accept an external sequence dictionary. If no external dictionary is supplied, multiple inputs' headers must have " +
-        "the same sequence dictionaries. Multiple inputs must have the same sample names (in order)\n",
+        "the same sequence dictionaries. Multiple inputs must have the same sample names (in order)" +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar SortVcf \\<br />" +
+                "     -I=VCF1.vcf \\<br />" +
+                "     -I=VCF2.vcf \\<br />" +
+                "     -O=sortedvcfs.vcf" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Sorts one or more VCF files",
         programGroup = VcfOrBcf.class
 )

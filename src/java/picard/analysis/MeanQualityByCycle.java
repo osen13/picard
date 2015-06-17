@@ -52,9 +52,23 @@ import java.util.List;
  * @author Tim Fennell
  */
 @CommandLineProgramProperties(
-        usage = "Program to generate a data table and pdf chart of " +
-                "mean base quality by cycle from a SAM or BAM file.  Works best on a single lane/run of data, but can be applied to" +
-                "merged BAMs. Uses R to generate chart output.",
+        usage = "This metric gives an overall snapshot of sequencing machine performance, as base quality scores" +
+                " tend to decrease towards the end of a run.  If quality drops precipitously towards the end of the" +
+                " run, the bases of those cycles can be trimmed from the reads. <br /><br />" +
+                "" +
+                "Programs generate data tables and pdf charts of mean base quality by sequencer cycle from a SAM or" +
+                " BAM file.  Works best on a single lane/run of data, but can be applied to merged BAMs. Uses R to" +
+                " generate chart output." +
+                "" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar MeanQualityByCycle \\<br />" +
+                "     -I=input.bam \\<br />" +
+                "     -O=meanqualbycycle.txt \\<br />" +
+                "     -CHART=meanqualbycycle.pdf" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Writes mean quality by cycle for a SAM or BAM file",
         programGroup = Metrics.class
 )

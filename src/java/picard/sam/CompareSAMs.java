@@ -50,11 +50,23 @@ import java.util.Map;
  * @author alecw@broadinstitute.org
  */
 @CommandLineProgramProperties(
-        usage = "USAGE: CompareSAMS <SAMFile1> <SAMFile2>\n" +
-                "Compares the headers of the two input SAM or BAM files, and, if possible, the SAMRecords. " +
+        usage = "USAGE: CompareSAMS <SAMFile1> <SAMFile2>" +
+                "Compares the headers of the two input SAM or BAM files and if possible, the SAMRecords. " +
                 "For SAMRecords, compares only the readUnmapped flag, reference name, start position and strand. " +
                 "Reports the number of SAMRecords that match, differ in alignment, are mapped in only one input, " +
-                "or are missing in one of the files",
+                "or are missing in one of the files.  Compares headers... if headers are sufficiently compatible, " +
+                "compares SAMRecords using basic alignment information.  " +
+                "Summarizes the number of alignments that match, mismatch, are missing, etc.  If missing, indicates " +
+                "which side of an alignment is missing." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CompareSAMs \\<br />" +
+                "     -BAMfile1.bam \\<br />" +
+                "     -BAMfile2.bam" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Compares two input SAM or BAM files",
         programGroup = SamOrBam.class
 )

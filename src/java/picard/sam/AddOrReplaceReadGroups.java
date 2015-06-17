@@ -30,8 +30,37 @@ import java.util.Arrays;
  * @author mdepristo
  */
 @CommandLineProgramProperties(
-        usage = "Replaces all read groups in the INPUT file with a single new read group and assigns " +
-                "all reads to this read group in the OUTPUT BAM",
+        usage = "Replaces all read groups in the INPUT file with a single new read group and assigns all reads to this" +
+                " read group in the OUTPUT BAM.  This can be used to combine datasets to call variants on multiple" +
+                " samples.<br /><br /> " +
+                "Accepts input bam files or Global Alliance for Genomics and Health (GA4GH) URLs.  " +
+                "The GA4GH will allow the interoperable exchange of genomic information across multiple organizations" +
+                " and on multiple platforms (http://ga4gh.org/#/documentation). This is a freely available open" +
+                " standard for interoperability that uses common web protocols to support serving and sharing of" +
+                " data on DNA sequences and genomic variation. The API is implemented as a webservice to create a" +
+                " data source, which may be integrated into visualization software, web-based genomics portals or" +
+                " processed as part of genomic analysis pipelines. It overcomes the barriers of incompatible" +
+                " infrastructure between organizations and institutions to enable DNA data providers and consumers" +
+                " to better share genomic data and work together on a global scale, advancing genome research and" +
+                " clinical application. <br /><br /> " +
+                "" +
+                "A readgroup is all the data that's processed the same way by the sequencer. " +
+                "There are typically 1-8 ReadGroups corresponding to lanes of an Illumina sequencer." +
+                "" +
+                "<h4>Usage example:</h4>" +
+        "<pre>" +
+        "java -jar picard.jar AddOrReplaceReadGroups \\<br />" +
+        "     -I=/Users/MyBAMfile.bam \\<br />" +
+        "     -O=/Users/RGmodBamfile \\<br />" +
+        "     -RGID=4 \\<br />" +
+        "     -RGLB=lib1 \\<br />" +
+        "     -RGPL=illumina \\<br />" +
+        "     -RGPU=unit1 \\<br />" +
+        "     -RGSM=20" +
+        "</pre>" +
+        "" +
+        "<hr />"
+        ,
         usageShort = "Replaces read groups in a BAM or SAM file with a single new read group",
         programGroup = SamOrBam.class
 )

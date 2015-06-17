@@ -32,9 +32,27 @@ import java.util.Set;
  * @author Tim Fennell
  */
 @CommandLineProgramProperties(
-        usage = " General tool for manipulating interval lists, " +
-                "including sorting, merging, padding, uniqueifying, and other set-theoretic operations. Default operation if given one or more inputs is to " +
-                "merge and sort them.  Other options are controlled by arguments.",
+        usage = "General tool for manipulating interval lists, including sorting, merging, padding, customizing, " +
+                "and other set-theoretic operations. Default operation if given one or more inputs is to merge" +
+                " and sort them.  Other options are controlled by arguments.<br /><br />" +
+
+                "Lists intervals with respect to a reference sequence that can be written to and read from a file." +
+                " The file format is relatively simple and reflects the SAM alignment format to a degree." +
+                "  A SAM style header must be present in the file, which lists the sequence records against" +
+                " which the intervals are described. <br /><br />" +
+                "" +
+                "After the header the file then contains records one per line in text format with the following" +
+                " values tab-separated: Sequence name, Start position (1-based), End position (1-based, end inclusive)," +
+                " Strand (either + or -), Interval name (an, ideally unique, name for the interval)." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar IntervalListTools \\<br />" +
+                "     -I=VCF1.vcf \\<br />" +
+                "     -O=VCF2.txt" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "General tool for manipulating interval lists",
         programGroup = Intervals.class
 )

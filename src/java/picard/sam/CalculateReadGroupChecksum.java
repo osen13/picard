@@ -16,7 +16,15 @@ import java.io.IOException;
 @CommandLineProgramProperties(
         usage = "Creates a hash code based on identifying information in the RG (read group) " +
                 "records in a SAM file's header. This hash code changes any time read groups are added or removed " +
-                "comparing one file's hash code to another tells you if the read groups in the BAM files are different.",
+                "comparing one file's hash code to another tells you if the read groups in the BAM files are different." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CalculateReadGroupChecksum \\<br />" +
+                "     -I=MyBAM.bam" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Creates a hash code based on the read groups (RG) in the SAM or BAM header.",
         programGroup = SamOrBam.class
 )

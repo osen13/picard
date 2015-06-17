@@ -48,11 +48,39 @@ import java.util.List;
  * @author Tim Fennell
  */
 @CommandLineProgramProperties(
-        usage = "Program to chart " +
-                "quality score distributions in a SAM or BAM file.",
-        usageShort = "Charts quality score distributions for a SAM or BAM file",
+        usage = "Program to chart quality score distributions in a SAM or BAM file.  Output options include plotting " +
+                "the distribution of all of the reads, only the aligned reads, reads that have passed the Illumina " +
+                "Chastity filter thresholds (1).  Chastity is defined as the ratio of the brightest base intensity " +
+                "divided by the sum of the brightest and second brightest base intensities. Clusters 'pass filter' if " +
+                "no more than 1 base call has a chastity value below 0.6 in the first 25 cycles (2).  This filtration " +
+                "process removes the least reliable clusters from the image analysis results. " +
+                "<br /> <br />" +
+                "If the original quality score (OQ) tag is present, histogram will plot both the OQ and the " +
+                "recalibrated quality scores.  The default is just the recalibrated scores.  " +
+                "<br /> <br />" +
+                "" +
+                "(1) Illumina, Inc. (2015).  Calculating Percent Passing Filter for Patterned and Non-Patterned " +
+                "Flow Cells: A comparison of methods for calculating percent passing filter on Illumina " +
+                "flow cells (hiseq-x-percent-pf-technical-note-770-2014-043.pdf)." +
+                "<br /> <br />" +
+                "(2) Ilumina (2014) HiSeq X System user guide. (support.illumina.com/content/dam/illumina-support/" +
+                "documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf)." +
+                "<br /> <br /> " +
+                "" +
+                "" +
+                "<h4>Usage Example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar QualityScoreDistribution \\<br />" +
+                "     -I=input.bam \\<br />" +
+                "     -O=QualityScoreDistributionOutput.txt \\<br />" +
+                "     -CHART=QualityScoreDistribution.pdf" +
+                "</pre>" +
+                "<hr />"
+        ,
+        usageShort = "Program to chart quality score distributions in a SAM or BAM file "    ,
         programGroup = Metrics.class
 )
+
 public class QualityScoreDistribution extends SinglePassSamProgram {
 
     @Option(shortName="CHART", doc="A file (with .pdf extension) to write the chart to.")

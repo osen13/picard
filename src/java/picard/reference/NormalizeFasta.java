@@ -24,7 +24,17 @@ import java.io.IOException;
 @CommandLineProgramProperties(
         usage = "Takes any file that conforms to the fasta format and " +
                 "normalizes it so that all lines of sequence except the last line per named sequence " +
-                "are of the same length.",
+                "are of the same length.  First convert bam file to FASTQ." +
+                "" +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar NormalizeFasta \\<br />" +
+                "     -I=FASTA.fasta \\<br />" +
+                "     -O=NormalizedFASTA.fasta" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Normalizes lines of sequence in a fasta file to be of the same length",
         programGroup = Fasta.class
 )

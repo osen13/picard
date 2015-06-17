@@ -50,9 +50,18 @@ import java.io.IOException;
  * @author Tim Fennell
  */
 @CommandLineProgramProperties(
-        usage = "Extracts one or more intervals described in an interval_list file " +
-                "from a given reference sequence and writes them out in FASTA format. Requires a fasta index " +
-                "file to be present.",
+        usage = "Extracts one or more intervals described in an interval_list file from a given reference sequence" +
+                " and writes them out in FASTA format. Requires a fasta index file to be present." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar ExtractSequences \\<br />" +
+                "     -INTERVAL_LIST=intervallist.vcf \\<br />" +
+                "     -R=human_b37_20.fasta \\<br />" +
+                "     -O=extractedsequences.fasta" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Extracts intervals from a reference sequence, writing them to a FASTA file",
         programGroup = Fasta.class
 )

@@ -56,7 +56,18 @@ import java.util.*;
  */
 @CommandLineProgramProperties(
         usage = "Examines aligned records in the supplied SAM or BAM file to locate duplicate molecules. " +
-                "All records are then written to the output file with the duplicate records flagged.",
+                "All records are then written to the output file with the duplicate records flagged. <br />" +
+                "A better duplication marking algorithm that handles all cases including clipped and gapped alignments.<br />" +
+                "" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar MarkDuplicates \\<br />" +
+                "     -I=MyBAM.bam \\<br />" +
+                "     -O=markedduplicates.txt \\<br />" +
+                "     -M=markeddupmetrics.bam " +
+                "</pre>" +
+                "<hr />"
+                ,
         usageShort = "Examines aligned records in the supplied SAM or BAM file to locate duplicate molecules.",
         programGroup = SamOrBam.class
 )

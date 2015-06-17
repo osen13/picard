@@ -40,12 +40,34 @@ import static java.lang.Math.log10;
  * Class for trying to quantify the CpCG->CpCA error rate.
  */
 @CommandLineProgramProperties(
-        usage = CollectOxoGMetrics.USAGE,
-        usageShort = CollectOxoGMetrics.USAGE,
+        usage = "Collects metrics quantifying the error rate resulting from oxidative artifacts <br /><br />" +
+                "Oxidation of guanine to 8-oxoguanine can occur during library preparation of genomic DNA via a " +
+                "combination of heat, shearing, and metal contaminates in a sample (doi: 10.1093/nar/gks1443).  " +
+                "In DNA, 8-oxoguanine can pair with " +
+                "either cytosine or adenine, ultimately leading to G→T transversion mutations during PCR amplification.  " +
+                "The variants (C→A)/(G→T) tend to occur in specific sequence contexts e.g. CCG→CAG" +
+                "(doi:10.1093/nar/gks1443).  Although occurring at relatively low frequencies," +
+                " these artifacts can have profound impacts on variant calling fidelity (doi:10.1093/nar/gks1443).  " +
+                "<br /><br />This tool calculates the Phred-scaled probability that an alternate base" +
+                " call results from an oxidation artifact.  This probability score is based on base context, sequencing" +
+                " read orientation, and the characteristic low allelic frequency (doi:10.1093/nar/gks1443).  Lower " +
+                "probability values implicate artifacts resulting from 8-oxoguanine, while higher probability values" +
+                " suggest that an alternate base call is due to either some other type of artifact or is a real variant." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CollectOxoGMetrics \\<br />" +
+                "     -I=Input.bam \\<br />" +
+                "     -O=oxoG_metrics.txt \\<br />" +
+                "     -R=ReferenceSequence.fasta" +
+                "</pre>" +
+                "" +
+                "<hr />"
+                ,
+        usageShort = "Collects metrics quantifying the error rate resulting from oxidative artifacts",
         programGroup = Metrics.class
 )
 public class CollectOxoGMetrics extends CommandLineProgram {
-    static final String USAGE = "Collects metrics quantifying the CpCG -> CpCA error rate from the provided SAM/BAM";
 
     @Option(shortName = StandardOptionDefinitions.INPUT_SHORT_NAME,
             doc = "Input BAM file for analysis.")

@@ -19,12 +19,29 @@ import picard.cmdline.Option;
 import picard.cmdline.programgroups.Metrics;
 import picard.util.RExecutor;
 
+
+
 @CommandLineProgramProperties(
-        usage = "Program to chart the nucleotide distribution per cycle in a SAM or BAM file.",
+        usage = "Program to chart the nucleotide distribution per cycle in a SAM or BAM file.  In addition to charting" +
+                " the percentages of each nucleotide for each sequencing cycle, this tool also outputs the number of" +
+                " unassigned nucleotides “N” to assess instrument functionality during a run.<br />" +
+                "" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CollectBaseDistributionByCycle \\<br />" +
+                "     -CHART=collectbasedistbycycle.pdf \\<br />" +
+                "     -I=input.bam \\<br />" +
+                "     -O=output.txt" +
+                "</pre>"    +
+        "<hr />"
+
+        ,
         usageShort = "Program to chart the nucleotide distribution per cycle in a SAM or BAM file.",
         programGroup = Metrics.class
 )
+
 public class CollectBaseDistributionByCycle extends SinglePassSamProgram {
+
 
     @Option(shortName = "CHART", doc = "A file (with .pdf extension) to write the chart to.")
     public File CHART_OUTPUT;

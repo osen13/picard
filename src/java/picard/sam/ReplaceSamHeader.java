@@ -50,7 +50,17 @@ import java.io.File;
 @CommandLineProgramProperties(
         usage = "Replace the SAMFileHeader in a SAM file with the given header. " +
                 "Validation is minimal.  It is up to the user to ensure that all the elements referred to in the SAMRecords " +
-                "are present in the new header.  Sort order of the two input files must be the same.",
+                "are present in the new header.  Sort order of the two input files must be the same." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar ReplaceSamHeader \\<br />" +
+                "     -I=Bamfile1.bam \\<br />" +
+                "     -HEADER=Bamfile2header.bam \\<br />" +
+                "     -O=ReplacedSamHeader.bam" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Replace the SAMFileHeader in a SAM file with the given header",
         programGroup = SamOrBam.class
 )

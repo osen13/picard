@@ -53,8 +53,17 @@ import java.io.File;
  * @author jgentry@broadinstitute.org
  */
 @CommandLineProgramProperties(
-        usage = "Convert a VCF file to a BCF file, or BCF to VCF.\n" +
-                "Input and output formats are determined by file extension.",
+        usage = "Convert a VCF file to a BCF file, or BCF to VCF." +
+                "Input and output formats are determined by file extension." +
+                "<br />" +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar VcfFormatConverter \\<br />" +
+                "     -I=MyVCF.vcf \\<br />" +
+                "     -O=MyBCF.bcf" +
+                "</pre>" +
+                "<hr />"
+        ,
         usageShort = "Converts a VCF file to a BCF file, or BCF to VCF",
         programGroup = VcfOrBcf.class
 )
