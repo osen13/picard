@@ -70,13 +70,15 @@ public class GenotypeConcordance extends CommandLineProgram {
     static final String USAGE_SUMMARY = "Calculates the concordance between genotype data for samples in two different" +
             "VCFs, your callset and a standard or 'truthset'.";
     static final String USAGE_DETAILS = "Genotype concordance is the fraction of validated genotypes within the total " +
-            "number of true-positive (TP) variant alleles (alleles validated against a gold-standard or truthset).  " +
-            "The truthset is a VCF containing variant genotypes that have been cross-validated with multiple" +
-            " technologies e.g. Genome In A Bottle Consortium (GIAB) (https://sites.stanford.edu/abms/giab).  " +
-            "Validated genotypes are assigned variant genotypes that match this truthset.  " +
-            "False-positive (FP) variants are reference alleles miscalled as variant alleles and false-negatives (FNs)" +
-            " are variant alleles that are miscalled as reference alleles.  True negatives are alleles correctly called as" +
-            " reference alleles (TN)."  +
+            "number of validated variant alleles (alleles validated against a gold-standard or truthset).  " +
+            "Useful definitions applicable to alleles and genotypes for this tool include:" +
+            "TP - True positives are variant alleles/genotypes that match a 'truthset'<br />" +
+            "Truthset - is a VCF containing variant alleles that have been cross-validated with multiple" +
+            " technologies e.g. Genome In A Bottle Consortium (GIAB) (https://sites.stanford.edu/abms/giab)<br />" +
+            "FP - False-positives are reference alleles miscalled as variant alleles<br />" +
+            "FN - False-negatives are variant alleles miscalled as reference alleles<br />" +
+            "TN - True negatives are correctly called reference alleles<br />" +
+            "Validated genotypes - are TP genotypes <br />  "     +
 
             "<h4>Usage example:</h4>" +
             "<pre>" +
