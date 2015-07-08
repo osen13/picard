@@ -71,7 +71,7 @@ public class GenotypeConcordance extends CommandLineProgram {
             "VCFs, your callset and a standard or 'truthset'.";
     static final String USAGE_DETAILS = "Genotype concordance is the fraction of validated genotypes within the total " +
             "number of validated variant alleles (alleles validated against a gold-standard or truthset).  " +
-            "Useful definitions applicable to alleles and genotypes for this tool include:" +
+            "Useful definitions applicable to alleles and genotypes for this tool include:<br /> " +
             "TP - True positives are variant alleles/genotypes that match a 'truthset'<br />" +
             "Truthset - is a VCF containing variant alleles that have been cross-validated with multiple" +
             " technologies e.g. Genome In A Bottle Consortium (GIAB) (https://sites.stanford.edu/abms/giab)<br />" +
