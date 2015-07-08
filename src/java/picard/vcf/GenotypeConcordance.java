@@ -69,14 +69,13 @@ import static htsjdk.variant.variantcontext.VariantContext.Type.*;
 public class GenotypeConcordance extends CommandLineProgram {
     static final String USAGE_SUMMARY = "Calculates the concordance between genotype data for samples in two different" +
             "VCFs, your callset and a standard or 'truthset'.";
-    static final String USAGE_DETAILS = "Genotype concordance is the fraction of correct assigned genotypes divided by the" +
-            " total number of true-positive (TP) variant alleles.  Genotype concordance is calculated by dividing the number of validated " +
-            "genotypes in a call set by the total number of TP alleles.  Validated genotypes are variant " +
-            "genotypes that match a gold-standard data set.  The gold-standard data set can be any curated data set " +
+    static final String USAGE_DETAILS = "Genotype concordance is the fraction of validated genotypes divided by the" +
+            " total number of true-positive (TP) variant alleles.  Validated genotypes are variant " +
+            "genotypes that match a gold-standard or truthset.  The gold-standard data can be any curated data set " +
             "containing variant genotypes that have been cross-validated with multiple technologies " +
             "e.g. Genome In A Bottle Consortium (GIAB) (https://sites.stanford.edu/abms/giab).  The TP variants are" +
             " variant alleles that have been validated by a gold-standard database.  In contrast, a false-positive (FP)" +
-            " variant is a called variant allele that has not been validated by a gold-standard data base.  " +
+            " variant is a called variant allele that could not be validated by a gold-standard.  " +
             "False-negative (FN) variants are variants incorrectly called as reference alleles and true negatives (TN)" +
             " are simply validated reference allele calls."  +
 
@@ -92,19 +91,21 @@ public class GenotypeConcordance extends CommandLineProgram {
             "<h4>Output Metrics:</h4>" +
             "Output metrics include GenotypeConcordanceContingencyMetrics, GenotypeConcordanceSummaryMetrics, and " +
             "GenotypeConcordanceDetailMetrics.  For each set of metrics, the data is broken into separate sections for " +
-            "SNPs and indels.  Note that only SNP and INDEL variants are considered, MNP, Symbolic, and Mixed classes" +
+            "SNPs and INDELs.  Note that only SNP and INDEL variants are considered, MNP, Symbolic, and Mixed classes" +
             " of variants are not included. <br /> <br /> +" +
 
-            "GenotypeConcordanceContingencyMetrics is a class that holds metrics " +
-            "about the Genotype Concordance contingency tables.  Tables include the numbers of true-positive " +
+            "GenotypeConcordanceContingencyMetrics include the numbers of true-positive " +
             "(TP), true-negative (TN), false-positive (FP), and false-negative (FN) variant calls. Please see " +
             "http://broadinstitute.github.io/picard/picard-metric-definitions.html#GenotypeConcordanceContingencyMetrics" +
             " for additional details.<br /><br />  " +
             "" +
-            "GenotypeConcordanceDetailMetrics is a class that holds detailed metrics about Genotype Concordance" +
-            " including the numbers of SNPs and Indels for each contingency.  For example, for variants called as  " +
-            "heterozygous variants, meaning one reference and one variant allele, the tool indicates the numbers of " +
-            "called variant genotypes e.g. HET_REF_VAR1 that match HET_REF_VAR1 the corresponding genotypes in " +
+            "GenotypeConcordanceDetailMetrics include the numbers of SNPs and INDELs for each contingency.  " +
+            "For example, for variants called as  " +
+            "heterozygous genotypes, meaning one reference and one variant allele, the tool indicates the numbers of " +
+            "called variant genotypes as well as the number of genotypes that match the truthset." +
+            "" +
+            "" +
+            " e.g. HET_REF_VAR1 that match HET_REF_VAR1 the corresponding genotypes in " +
             "the gold-standard as well as those that do not." +
             "Please see " +
             "http://broadinstitute.github.io/picard/picard-metric-definitions.html#GenotypeConcordanceDetailMetrics. " +
