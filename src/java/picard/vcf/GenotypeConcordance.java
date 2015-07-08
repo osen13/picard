@@ -73,7 +73,7 @@ public class GenotypeConcordance extends CommandLineProgram {
             "number of validated variant alleles (alleles validated against a gold-standard or truthset).  " +
             "Useful definitions applicable to alleles and genotypes for this tool include:<br /> " +
             "TP - True positives are variant alleles/genotypes that match a 'truthset'<br />" +
-            "Truthset - is a VCF containing variant alleles that have been cross-validated with multiple" +
+            "Truthset - A VCF containing variant alleles that have been cross-validated with multiple" +
             " technologies e.g. Genome In A Bottle Consortium (GIAB) (https://sites.stanford.edu/abms/giab)<br />" +
             "FP - False-positives are reference alleles miscalled as variant alleles<br />" +
             "FN - False-negatives are variant alleles miscalled as reference alleles<br />" +
