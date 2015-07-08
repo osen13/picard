@@ -81,17 +81,17 @@ public class GenotypeConcordance extends CommandLineProgram {
             "<h4>Usage example:</h4>" +
             "<pre>" +
             "java -jar picard.jar GenotypeConcordance \\<br />" +
-            "     -CALL_VCF=/Users/VCF1.vcf \\<br />" +
-            "     -O=/Users/GConcordance.vcf \\<br />" +
-            "     -TRUTH_VCF=/Users/GIAB.vcf \\<br />" +
-            "     -TRUTH_SAMPLE=sample#" +
+            "     -CALL_VCF=VCF1.vcf \\<br />" +
+            "     -O=GConcordance.vcf \\<br />" +
+            "     -TRUTH_VCF=Truthset.vcf \\<br />" +
+            "     -TRUTH_SAMPLE=Truthsample#" +
             "</pre>" +
             "" +
             "<h4>Output Metrics:</h4>" +
             "Output metrics include GenotypeConcordanceContingencyMetrics, GenotypeConcordanceSummaryMetrics, and " +
             "GenotypeConcordanceDetailMetrics.  For each set of metrics, the data is broken into separate sections for " +
             "SNPs and INDELs.  Note that only SNP and INDEL variants are considered, MNP, Symbolic, and Mixed classes" +
-            " of variants are not included. <br /> <br /> +" +
+            " of variants are not included. <br /> <br /> " +
 
             "GenotypeConcordanceContingencyMetrics include the numbers of each contingent of alleles in a callset " +
             "including true-positive (TP), true-negative (TN), false-positive (FP), and false-negative (FN) calls. Please see " +
