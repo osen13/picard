@@ -64,31 +64,31 @@ import java.util.Set;
  * @author Doug Voet (dvoet at broadinstitute dot org)
  */
 @CommandLineProgramProperties(
-        usage = "Using read outputs from NGS technologies, this tool provides detailed metrics" +
-        "regarding the quality of the alignments of these reads to a reference sequence. These metrics include " +
-        "the numbers of " +
-        "reads that passed machine signal-to-noise threshold quality filters as well as values representing the " +
-        "degree of alignment to a reference sequence.  Please see http://broadinstitute.github.io/picard/picard-" +
-        "metric-definitions.html#AlignmentSummaryMetrics for detailed explanations of each metric.  Additional " +
-        "information can be found by downloading the following documents: (http://support.illumina.com/content/" +
-        "dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf) " +
-        "and (http://support.illumina.com/content/dam/illumina-support/documents/documentation/" +
-        "system_documentation/hiseqx/hiseq-x-system-guide-15050091-d.pdf)." +
-        "" +
-        "<br />" +
-        "<h4>Usage example:</h4>" +
-        "<pre>" +
-        "    java -jar picard.jar CollectAlignmentMetrics \\<br />" +
-        "         -R=reference.fasta \\<br />" +
-        "         -I=input.bam \\<br />" +
-        "         -O=output.txt" +
-        "</pre>" +
-        "<hr />"
-        ,
-        usageShort = "Produces a file containing summary alignment metrics from a SAM or BAM file",
+        usage = CollectAlignmentSummaryMetrics.USAGE_SUMMARY + CollectAlignmentSummaryMetrics.USAGE_DETAILS,
+        usageShort = CollectAlignmentSummaryMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
 public class CollectAlignmentSummaryMetrics extends SinglePassSamProgram {
+    static final String USAGE_SUMMARY = "Produces a file containing summary alignment metrics from a SAM or BAM file";
+    static final String USAGE_DETAILS = "Using read outputs from HTS technologies, this tool provides detailed metrics" +
+            "regarding the quality of the " +
+            "reads that passed machine signal-to-noise threshold quality filters (Illumina) as well as values representing the " +
+            "degree of alignment to a reference sequence.  " +
+            "Please see <ul> http://broadinstitute.github.io/picard/picard-metric-definitions.html#AlignmentSummaryMetrics" +
+            " </ul> for detailed explanations of each metric.  Additional " +
+            "information can be found by downloading the following documents: " +
+            "<ul><li>http://support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf</li> " +
+            "<li>http://support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-system-guide-15050091-d.pdf</li></ul>" +
+            "<br />" +
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "    java -jar picard.jar CollectAlignmentSummaryMetrics \\<br />" +
+            "         -R=reference.fasta \\<br />" +
+            "         -I=input.bam \\<br />" +
+            "         -O=output.txt" +
+            "</pre>" +
+            "<hr />"
+            ;
     private static final Log log = Log.getInstance(CollectAlignmentSummaryMetrics.class);
 
     @Option(doc="Paired end reads above this insert size will be considered chimeric along with inter-chromosomal pairs.")
