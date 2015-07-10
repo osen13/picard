@@ -32,7 +32,7 @@ public class CollectBaseDistributionByCycle extends SinglePassSamProgram {
         static final String USAGE_DETAILS = "This program charts the nucleotide distribution per cycle in a SAM or BAM file.<br /><br />" +
             "Each cycle represents a new nucleotide added on to a growing oligonucleotide chain during sequencing " +
             "Illumina's sequencing by synthesis technology, is described in the following video: " +
-            "<br />https://www.youtube.com/watch?v=HMyCqWhwB8E<br /><br />.  " +
+            "<br /><br />www.youtube.com/watch?v=HMyCqWhwB8E<br /><br />.  " +
             "The growing synthetic oligonucleotide chains are represented as the observed reads in a sequencing run.  " +
             "However, as the run progresses, the accuracy of nucleotide incorporation by the DNA polymerase can degrade, such that " +
             "base calls become ambiguous towards the end of a read/run.  These ambiguous base calls are indicated as" +
