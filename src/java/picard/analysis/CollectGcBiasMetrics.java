@@ -88,15 +88,15 @@ public class CollectGcBiasMetrics extends SinglePassSamProgram {
             " AT-rich or GC-rich regions respectfully. <br /><br />" +
             "" +
             "GcBiasDetailedMetrics produces both a chart (pdf) and a table of data.  These data include GC percentages " +
-            "for each bin (GC), the numbers of windows corresponding to each bin (WINDOWS), the numbers of reads that start within a bin (READ_STARTS)" +
+            "for each bin (GC), the numbers of windows corresponding to each bin (WINDOWS), the numbers of reads that start within a bin (READ_STARTS), " +
             "and the mean base quality of the reads that correspond to a specific GC-content distribution window (MEAN_BASE_QUALITY)." +
-            "In addition, NORMALIZED_COVERAGE is a relative measure of sequence coverage by the reads at a particular GC-content." +
+            "  In addition, NORMALIZED_COVERAGE is a relative measure of sequence coverage by the reads at a particular GC-content." +
             "  The percentage of \"coverage\" or depth in a GC bin is calculated by dividing the number of reads of a particular GC content, " +
             "by the mean number of reads of all GC bins.  A number of 1 represents mean coverage, a number less than " +
             "one represents lower than mean coverage (e.g. 0.5 means half as much coverage as average) while a " +
             "number greater than one represents higher than mean coverage (e.g. 3.1 means this GC bin has 3.1 times" +
             " more reads per window than average).  Tool also plots mean base-quality scores of the reads within each" +
-            " GC-content bin.  This enables the user to determine how base-quality scores vary with GC-content.<br />"+
+            " GC-content bin, enabling the user to determine how base-quality scores vary with GC-content.<br />"+
 
             "<h4>Usage Example:</h4>"+
             "<pre>" +
