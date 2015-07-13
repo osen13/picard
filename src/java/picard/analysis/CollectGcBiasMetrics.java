@@ -65,18 +65,37 @@ import java.util.Set;
 )
 public class CollectGcBiasMetrics extends SinglePassSamProgram {
     static final String USAGE_SUMMARY = "Collects information regarding GC bias, from a SAM/BAM input file";
-    static final String USAGE_DETAILS = "Tool to collect information about GC bias in the reads in a given BAM file." +
-            "<br /> <br /> " +
-            "Guanine and cytosine (GC) base pairs have three hydrogen bonds compared with two for" +
-            " adenine and thymine (AT).  Consequently, this results in different melting temperatures required" +
-            " for the separation of AT- and GC-rich sequences.  Regions encoding genes are have higher proportions" +
-            " of GC nucleotide pairs compared with the total genome." +
-            "<br /><br />" +
+    static final String USAGE_DETAILS = "Tool that collects information about G + C content, enabling the user to" +
+            " determine how GC-content affects the sequencing and alignment of their data.<br /> <br />" +
             "" +
-            "This tool computes the number of windows (of size specified by WINDOW_SIZE) in the genome at each GC% and " +
-            "counts the number of read starts in each GC bin.  'Normalized coverage' in each bin - i.e. the number" +
-            " of reads per window normalized to the average number of reads per window across the whole genome " +
-            "is output and plotted."+
+            "Briefly, G + C content of DNA can affect base-calling accuracy due in part, to the hydrogen bonding" +
+            " differences between G/C and A/T pairs.<br /><br />" +
+            "" +
+            "GC-bias is calculated and output using both charts (pdf) and tables (txt).  Initially, the G + C content" +
+            " of a sequence of interest is determined for the reference sequence.  This sequence is divided into bins" +
+            " or windows based on the percentage of G + C content, which ranges from 0 - 100%.  The WINDOW_SIZE refers" +
+            " to the numbers of bases in each bin; the default value is set at 100 bases.  The tool determines the numbers of" +
+            " windows corresponding to each percentage of GC-content.  The mean value human of G + C bases in DNA are " +
+            "slightly more than 40%, suggesting preponderance towards AT-rich regions, while GC-rich regions tend to " +
+            "cluster in protein coding sequences.<br /><br />" +
+            "" +
+            "The GcBiasSummaryMetrics provides high-level metrics that capture run-specific bias information including" +
+            " WINDOW_SIZE, ALIGNED_READS, TOTAL_CLUSTERS, AT_DROPOUT, and GC_DROPOUT.  The ALIGNED_READS and" +
+            " TOTAL_CLUSTERS are the total number of aligned reads and the total number of amplification clusters " +
+            "produced by a run.  In addition, the tool produces AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of" +
+            " reads dropped from an analysis due to the inability to map to the reference as result of excessively" +
+            " AT-rich or GC-rich regions respectfully. <br /><br />" +
+            "" +
+            "NORMALIZED_COVERAGE is a relative measure of sequence coverage by the reads at a particular GC-content." +
+            "  The percentage of \"coverage\" or depth in a GC bin is calculated by dividing the number of reads of a" +
+            " particular GC%, by the mean number of reads of all GC bins.  A number of 1 represents mean coverage, a" +
+            " number less than one represents lower than mean coverage (e.g. 0.5 means half as much coverage as" +
+            " average) while a number greater than one represents higher than mean coverage (e.g. 3.1 means this" +
+            " GC bin has 3.1 times more reads per window than average).<br /><br />" +
+            "" +
+            "Tool also plots mean base-quality scores of the reads within each GC-content bin.  This enables the" +
+            " user to determine how base-quality scores vary with GC-content.<br />"+
+
             "<h4>Usage Example:</h4>"+
             "<pre>" +
             "java -jar picard.jar CollectGcBiasMetrics \\<br />"+
@@ -84,12 +103,13 @@ public class CollectGcBiasMetrics extends SinglePassSamProgram {
             "     -O=GCBiasMetrics.txt \\<br />"+
             "     -CHART=GCBiasMetrics.pdf \\<br />"+
             "     -R=ReferenceSequence.fasta"+
-            "</pre>" +
+            "</pre>"+
+
+
             "For detailed explanations of the output metrics, please see:" +
             "https://broadinstitute.github.io/picard/picard-metric-definitions.html#GcBiasMetrics" +
             "<hr />"
-            ;
-
+    ;
     /** The location of the R script to do the plotting. */
     private static final File R_SCRIPT = new File("src/scripts/picard/analysis/","gcBias.R");
 
