@@ -106,7 +106,7 @@ public class CollectGcBiasMetrics extends SinglePassSamProgram {
             "     -CHART=GCBiasMetrics.pdf \\<br />"+
             "     -R=ReferenceSequence.fasta"+
             "</pre>"+
-            "For detailed explanations of the output metrics, please see:" +
+            "For detailed explanations of the output metrics, please see: " +
             "https://broadinstitute.github.io/picard/picard-metric-definitions.html#GcBiasMetrics" +
             "<hr />"
     ;
