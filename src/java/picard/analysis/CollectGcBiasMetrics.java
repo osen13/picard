@@ -71,18 +71,19 @@ public class CollectGcBiasMetrics extends SinglePassSamProgram {
             "Briefly, G + C content of DNA can affect base-calling accuracy due in part, to the hydrogen bonding" +
             " differences between G/C and A/T pairs.<br /><br />" +
             "" +
-            "GC-bias is calculated and output using both charts (pdf) and tables (txt).  Initially, the G + C content" +
-            " of a sequence of interest is determined for the reference sequence.  This sequence is divided into bins" +
-            " or windows based on the percentage of G + C content, which ranges from 0 - 100%.  The WINDOW_SIZE refers" +
-            " to the numbers of bases in each bin; the default value is set at 100 bases.  The tool determines the numbers of" +
-            " windows corresponding to each percentage of GC-content.  The mean value human of G + C bases in DNA are " +
-            "slightly more than 40%, suggesting preponderance towards AT-rich regions, while GC-rich regions tend to " +
-            "cluster in protein coding sequences.<br /><br />" +
-            "" +
+            "For each run, the corresponding reference sequence is divided into bins or windows based on the percentage of G + C" +
+            " content ranging from 0 - 100%.  " +
+            "This produces a distribution of which, each bin is a defined length of sequence, the default " +
+            "value is set at 100 bases.  The distribution plots the frequency of bins with a specific GC content.  " +
+            "The mean of the distribution will vary among organisms.  However, human DNA has a mean GC-content of 40%, suggesting " +
+            "preponderance of AT-rich regions.  <br /><br />" +
+
+            "GC-bias is calculated and output as both summary (optional) and detailed metrics (required).  " +
             "The GcBiasSummaryMetrics provides high-level metrics that capture run-specific bias information including" +
-            " WINDOW_SIZE, ALIGNED_READS, TOTAL_CLUSTERS, AT_DROPOUT, and GC_DROPOUT.  The ALIGNED_READS and" +
+            " WINDOW_SIZE, ALIGNED_READS, TOTAL_CLUSTERS, AT_DROPOUT, and GC_DROPOUT.  While WINDOW_SIZE refers to the" +
+            "numbers of bases used for the distribution (above), the ALIGNED_READS and" +
             " TOTAL_CLUSTERS are the total number of aligned reads and the total number of amplification clusters " +
-            "produced by a run.  In addition, the tool produces AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of" +
+            "produced in a run.  In addition, the tool produces both AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of" +
             " reads dropped from an analysis due to the inability to map to the reference as result of excessively" +
             " AT-rich or GC-rich regions respectfully. <br /><br />" +
             "" +
