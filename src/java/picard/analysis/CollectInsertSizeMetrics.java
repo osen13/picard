@@ -66,7 +66,7 @@ public class CollectInsertSizeMetrics extends SinglePassSamProgram {
             "during library preparation.  For detailed explanation of library construction strategies, please see: " +
             "<li>illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html" +
             "<li>illumina.com/documents/products/technotes/technote_nextera_matepair_data_processing.pdf" +
-            "<br />This tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
+            "<br /><br />This tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
             " \".insert_size_Histogram.pdf\".  The (txt) file is the raw data for the histogram (pdf)." +
 
             "<h4>Usage example:</h4>" +
