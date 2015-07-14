@@ -65,15 +65,15 @@ public class CollectInsertSizeMetrics extends SinglePassSamProgram {
             " containing large structural rearrangements.  Tandem reads can result from inversions and rearrangements " +
             "during library preparation.  For detailed explanation of library construction strategies, please see: " +
             "<br /><li>illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html<li />" +
-            "illumina.com/documents/products/technotes/technote_nextera_matepair_data_processing.pdf<li /><br />"+
-            "Tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
+            "<li>illumina.com/documents/products/technotes/technote_nextera_matepair_data_processing.pdf<li /><br />" +
+            "This tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
             " \".insert_size_Histogram.pdf\".  The (txt) file is the raw data for the histogram (pdf)." +
 
             "<h4>Usage example:</h4>" +
             "<pre>" +
             "java -jar picard.jar CollectInsertSizeMetrics \\<br />" +
             "     -I=input.bam \\<br />" +
-            "     -O=output.insert_size_metrics.txt \\<br />" +
+            "     -O=insert_size_metrics.txt \\<br />" +
             "     -H=insert_size_histogram.pdf \\<br />" +
             "     -M=0.5" +
             "</pre>"    +
