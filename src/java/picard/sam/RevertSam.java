@@ -69,7 +69,15 @@ import java.util.Map;
  */
 @CommandLineProgramProperties(
         usage = "Reverts SAM or BAM files to a previous state by removing certain types of information and/or " +
-                "substituting in the original quality scores when available.",
+                "substituting in the original quality scores when available." +
+                "<h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar RevertSam \\<br />" +
+                "     -I=MyBAM.bam \\<br />" +
+                "     -O=RevertedSam.sam" +
+                "</pre>" +
+                "<hr />"
+,
         usageShort = "Reverts SAM or BAM files to a previous state",
         programGroup = SamOrBam.class
 )
