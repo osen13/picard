@@ -64,9 +64,9 @@ public class CollectInsertSizeMetrics extends SinglePassSamProgram {
             " in a RF conformation, contain larger inserts (~3 kb), and enable sequence coverage of genomic regions" +
             " containing large structural rearrangements.  Tandem reads can result from inversions and rearrangements " +
             "during library preparation.  For detailed explanation of library construction strategies, please see: " +
-            "<br /><br />illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html and " +
+            "<br /><br /><li>illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html <li /> " +
             "<li>[Data Processing of Nextera Mate Pair Reads on Illumina Sequencing Platforms" +
-            " Pub. No. 770-2012-053 (www.illumina.com)] <br /><br /> "+
+            " Pub. No. 770-2012-053 (www.illumina.com)]<li /> <br /><br /> "+
             "" +
             "Tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
             " \".insert_size_Histogram.pdf\".  The (txt) file is the raw data for the histogram (pdf)." +
