@@ -55,25 +55,20 @@ import java.util.Set;
 public class CollectInsertSizeMetrics extends SinglePassSamProgram {
     static final String USAGE_BRIEF = "Metrics about the insert size distribution of a paired-end library";
     static final String USAGE_SUMMARY = "Tool produces metrics about the insert size distribution of a paired-end " +
-            "library as well as information about read pairs and their orientations. This information can help validate" +
-            " that the genomic DNA shearing to a particular size range, was successful.  <br /><br />" +
-            "" +
-            "A paired-end library consists of size-selected sheared genomic DNA fragments that are sequenced in both" +
-            " the forward and reverse directions.  For detailed explanation of library construction using this" +
-            " strategy, please see: " +
-            "<br /><br />illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html <br /><br />" +
-            "" +
-            "This tool also groups the read pairs into three orientation categories: forward reverse (FR), " +
-            "reverse forward (RF), and reverse-reverse/forward-forward (TANDEM).  In general, paired-end reads tend" +
-            " to be in a FR conformation, have relatively small inserts (~300 - 500 bp) and are useful for the" +
-            " sequencing/mapping of fragments that contain short repeat regions.  Mate-pair libraries are generally" +
+            "libraries.  In addition, this tool provides information on library construction via grouping the read pairs" +
+            " into three orientation" +
+            " categories: forward reverse (FR), reverse forward (RF), and reverse-reverse/forward-forward (TANDEM).  " +
+            "In general, paired-end reads tend" +
+            " to be in a FR conformation, have relatively small inserts (~300 - 500 bp), and are particularly useful for the" +
+            " sequencing of fragments that contain short repeat regions.  Mate-pair libraries are generally" +
             " in a RF conformation, contain larger inserts (~3 kb), and enable sequence coverage of genomic regions" +
-            " containing large structural rearrangements.  Additional information on mate-pair libraries can be found here:" +
-            "<br /><br /> [Data Processing of Nextera Mate Pair Reads on Illumina Sequencing Platforms" +
-            " Pub. No. 770-2012-053 (www.illumina.com)]. <br /><br /> " +
-
-            "Tandem reads can result from inversions and rearrangements during library preparation.  " +
-            "Tool produces output files with the extensions \".insert_size_metrics.txt\" and" +
+            " containing large structural rearrangements.  Tandem reads can result from inversions and rearrangements " +
+            "during library preparation.  For detailed explanation of library construction strategies, please see: " +
+            "<br /><br />illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html and " +
+            "[Data Processing of Nextera Mate Pair Reads on Illumina Sequencing Platforms" +
+            " Pub. No. 770-2012-053 (www.illumina.com)]. <br /><br /> "+
+            "" +
+            "Tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
             " \".insert_size_Histogram.pdf\".  The (txt) file is the raw data for the histogram (pdf)." +
 
             "<h4>Usage example:</h4>" +
