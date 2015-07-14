@@ -48,32 +48,40 @@ import java.util.Set;
  * @author Doug Voet (dvoet at broadinstitute dot org)
  */
 @CommandLineProgramProperties(
-        usage = CollectInsertSizeMetrics.USAGE_SUMMARY,
+        usage = CollectInsertSizeMetrics.USAGE_SUMMARY + CollectInsertSizeMetrics.USAGE_BRIEF,
         usageShort = CollectInsertSizeMetrics.USAGE_BRIEF,
         programGroup = Metrics.class
 )
 public class CollectInsertSizeMetrics extends SinglePassSamProgram {
     static final String USAGE_BRIEF = "Metrics about the insert size distribution of a paired-end library";
-    static final String USAGE_SUMMARY = "Metrics about the insert size distribution of a paired-end library, created by the " +
-            "CollectInsertSizeMetrics program and usually written to a file with the extension " +
-            "\".insert_size_metrics.txt\".  In addition the insert size distribution is plotted to a file with the " +
-            "extension \".insert_size_Histogram.pdf\".<br /><br />" +
-            "There are two separate outputs from this tool including distributions of insert sizes as well as " +
-            "grouped information about read pairs and their orientations.  Currently, the tool groups the read " +
-            "pairs into three categories: forward reverse (FR), which are paired-end reads; reverse forward (RF)," +
-            " which are mate pair reads; and reverse-reverse/forward-forward (tandem reads). In general, paired" +
-            " ends tend to be in a FR conformation and have relatively small inserts (~300 - 500 bp), while " +
-            "mate-pair libraries are in a RF conformation, and contain larger inserts (~3 kb).<br /><br />" +
-            "Mate-pair libraries enable improved sequence coverage of genomic regions containing large structural" +
-            " rearrangements.  Additional information on mate-pair and paired-end libraries can be found here:" +
-            " [Data Processing of Nextera Mate Pair Reads on Illumina Sequencing Platforms" +
-            " Pub. No. 770-2012-053 (www.illumina.com)]. <br />" +
+    static final String USAGE_SUMMARY = "Tool produces metrics about the insert size distribution of a paired-end " +
+            "library as well as information about read pairs and their orientations. This information can help validate" +
+            " that the genomic DNA shearing to a particular size range, was successful.  <br /><br />" +
+            "" +
+            "A paired-end library consists of size-selected sheared genomic DNA fragments that are sequenced in both" +
+            " the forward and reverse directions.  For detailed explanation of library construction using this" +
+            " strategy, please see: " +
+            "<br /><br />illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html <br /><br />" +
+            "" +
+            "This tool also groups the read pairs into three orientation categories: forward reverse (FR), " +
+            "reverse forward (RF), and reverse-reverse/forward-forward (TANDEM).  In general, paired-end reads tend" +
+            " to be in a FR conformation, have relatively small inserts (~300 - 500 bp) and are useful for the" +
+            " sequencing/mapping of fragments that contain short repeat regions.  Mate-pair libraries are generally" +
+            " in a RF conformation, contain larger inserts (~3 kb), and enable sequence coverage of genomic regions" +
+            " containing large structural rearrangements.  Additional information on mate-pair libraries can be found here:" +
+            "<br /><br /> [Data Processing of Nextera Mate Pair Reads on Illumina Sequencing Platforms" +
+            " Pub. No. 770-2012-053 (www.illumina.com)]. <br /><br /> " +
+
+            "Tandem reads can result from inversions and rearrangements during library preparation.  " +
+            "Tool produces output files with the extensions \".insert_size_metrics.txt\" and" +
+            " \".insert_size_Histogram.pdf\".  The (txt) file is the raw data for the histogram (pdf)." +
+
             "<h4>Usage example:</h4>" +
             "<pre>" +
             "java -jar picard.jar CollectInsertSizeMetrics \\<br />" +
-            "     -I=/input.bam \\<br />" +
-            "     -O=/output.insert_size_metrics.txt \\<br />" +
-            "     -H=/insert_size_histogram.pdf \\<br />" +
+            "     -I=input.bam \\<br />" +
+            "     -O=output.insert_size_metrics.txt \\<br />" +
+            "     -H=insert_size_histogram.pdf \\<br />" +
             "     -M=0.5" +
             "</pre>"    +
             "If processing a small file, set the minimum percentage option (M) to 0.5, otherwise an error" +
@@ -81,6 +89,7 @@ public class CollectInsertSizeMetrics extends SinglePassSamProgram {
             "<br /><br />For additional information, see " +
             "http://broadinstitute.github.io/picard/picard-metric-definitions.html#InsertSizeMetrics" +
             "<hr />";
+
     private static final Log log = Log.getInstance(CollectInsertSizeMetrics.class);
     private static final String Histogram_R_SCRIPT = "picard/analysis/insertSizeHistogram.R";
 
