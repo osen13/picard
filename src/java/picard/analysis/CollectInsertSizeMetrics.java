@@ -55,7 +55,7 @@ import java.util.Set;
 public class CollectInsertSizeMetrics extends SinglePassSamProgram {
     static final String USAGE_BRIEF = "Metrics about the insert size distribution of a paired-end library";
     static final String USAGE_SUMMARY = "Tool produces metrics about the insert size distribution of a paired-end " +
-            "libraries.  In addition, this tool provides information on library construction via grouping the read pairs" +
+            "read libraries.  In addition, this tool provides information on library construction via grouping the read pairs" +
             " into three orientation" +
             " categories: forward reverse (FR), reverse forward (RF), and reverse-reverse/forward-forward (TANDEM).  " +
             "In general, paired-end reads tend" +
