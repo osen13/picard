@@ -54,10 +54,12 @@ import java.util.Set;
 )
 public class CollectInsertSizeMetrics extends SinglePassSamProgram {
     static final String USAGE_BRIEF = "Metrics about the insert size distribution of a paired-end library";
-    static final String USAGE_SUMMARY = "Tool produces metrics regarding the insert size distribution of paired-end " +
-            "read libraries.  In addition, this tool provides information on library construction via grouping the read pairs" +
-            " into three orientation" +
-            " categories: forward reverse (FR), reverse forward (RF), and reverse-reverse/forward-forward (TANDEM).  " +
+    static final String USAGE_SUMMARY = "Tool provides useful metrics for validating library construction including " +
+            "the insert size distribution and read orientation of paired-end libraries. <br /><br />" +
+            "" +
+            "The insert size distribution is output as both a histogram \".insert_size_Histogram.pdf\" and as a data table " +
+            "\".insert_size_metrics.txt\".  In addition, The tool groups reads into three" +
+            " orientation categories: forward reverse (FR), reverse forward (RF), and reverse-reverse/forward-forward (TANDEM). " +
             "In general, paired-end reads tend" +
             " to be in a FR conformation, have relatively small inserts (~300 - 500 bp), and are particularly useful for the" +
             " sequencing of fragments that contain short repeat regions.  Mate-pair libraries are generally" +
@@ -66,9 +68,6 @@ public class CollectInsertSizeMetrics extends SinglePassSamProgram {
             "during library preparation.  For detailed explanation of library construction strategies, please see: " +
             "<li>illumina.com/technology/next-generation-sequencing/paired-end-sequencing_assay.html" +
             "<li>illumina.com/documents/products/technotes/technote_nextera_matepair_data_processing.pdf" +
-            "<br /><br />This tool produces output files with the extensions \".insert_size_metrics.txt\" and " +
-            " \".insert_size_Histogram.pdf\".  The (txt) file is the raw data for the histogram (pdf)." +
-
             "<h4>Usage example:</h4>" +
             "<pre>" +
             "java -jar picard.jar CollectInsertSizeMetrics \\<br />" +
