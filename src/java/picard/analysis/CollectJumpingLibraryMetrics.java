@@ -62,27 +62,39 @@ import java.util.List;
 
 public class CollectJumpingLibraryMetrics extends CommandLineProgram {
     static final String USAGE_SUMMARY = "SAM file generated with a jumping library, produced by the " +
-            "CollectJumpingLibraryMetrics program. ";
-    static final String USAGE_DETAILS = "High level metrics about the presence of outward- and inward-facing pairs " +
-            "within a library.  Jumping libraries contain DNA fragments from noncontiguous regions and are used " +
-            "primarily for sequencing repetitive regions or structural rearrangements.  This tool characterizes the " +
-            "degree of chimeric inserts arising as artifacts of PCR amplification. Outward facing " +
-            "pairs are considered jumping and are distal to one another on the chromosome while and inward facing pairs" +
-            "are considered proximal (non-jumping).  It is often desirable to remove chimeric inserts which can " +
-            "complicate downstream analyses.  <br />" +
-            "This program gets all data for computation from the first read in each pair and assumes that the mapping" +
-            "quality (MQ) tag is set with the mate's mapping quality.  If the MQ tag is not set, then the program" +
-            "assumes that the mate's MQ is greater than or equal to MINIMUM_MAPPING_QUALITY (default value is 0)." +
-            "<br />"  +
-            "<h4>Usage example:</h4>" +
-            "<pre>" +
-            "    java -jar picard.jar CollectJumpingLibraryMetrics \\<br />" +
-            "         -I=MyBAM.bam  \\<br />" +
-            "         -O=JumpingLib.txt <br />" +
-            "</pre>" +
-            "<hr />" +
-            "Please see http://broadinstitute.github.io/picard/picard-metric-definitions.html#JumpingLibraryMetrics" +
-            "for additional details and explanations of the output metrics."
+            "CollectJumpingLibraryMetrics program.";
+    static final String USAGE_DETAILS = "The CollectJumpingLibraryMetrics tool collects high-level metrics about the " +
+            "presence of outward- (jumping) and inward-facing (non-jumping) read pairs within a SAM/BAM file.<br /><br />" +
+            "  Jumping libraries are created to bypass difficult to align/map regions, such as those containing repetitive" +
+            " DNA sequences.  Briefly, the DNA of interest is identified, cut into fragments either with restriction" +
+            " enzymes or by shearing, size-selected, and ligated to adapters for bead-capture and circularized.  " +
+            "After bead-capture, the DNA linearized via restriction enzymes and can be sequenced using adapter" +
+            " primers facing in outward [reverse/forward (RF)] directions.  " +
+            "These library inserts are considered jumping because the ends originate from distal genomic DNA sequences" +
+            " and are ligated adjacent to one another during circularization.  Potential artifacts of this method " +
+            "include small inserts (lacking the linearizing restriction enzyme sequence), which are inward" +
+            " facing [forward/reverse (FR)] (non-jumping) read pairs.  In addition, chimeras result from the" +
+            " paired ends falling on different chromosomes, the insert size exceeding the maximum of 100 KB, or two" +
+            " times the mode of the insert size for outward-facing pairs. Please see: " +
+            "<li> www.wikipedia.org/wiki/Jumping_library#Paired-end_sequencing for additional information." +
+                    "" +
+                    "This program gets all data for computation from the first read in each pair and assumes that the mapping " +
+            "quality (MQ) tag is set with the mate's mapping quality.  If the MQ tag is not set, then the program " +
+            "assumes that the mate's MQ is greater than or equal to MINIMUM_MAPPING_QUALITY (default value is 0).<br /><br />  " +
+            "Tool produces (txt) files with the extension \".jump_metrics\".  Add the (.txt) suffix to open file" +
+                    " in a text editor." +
+                    "" +
+                    "<br />" +
+                    "<h4>Usage example:</h4>" +
+                    "<pre>" +
+                    "java -jar picard.jar CollectJumpingLibraryMetrics \\<br />" +
+                    "     -I=MyBAM.bam  \\<br />" +
+                    "     -O=MyBAM.jump_metrics.txt <br />" +
+                    "</pre>" +
+                    "<hr />" +
+                    "" +
+                    "Please see http://broadinstitute.github.io/picard/picard-metric-definitions.html#JumpingLibraryMetrics" +
+                    "for additional details and explanations of the output metrics."
             ;
 
     // Usage and parameters
