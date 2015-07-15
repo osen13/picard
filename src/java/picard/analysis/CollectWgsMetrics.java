@@ -34,7 +34,7 @@ import java.util.List;
  */
 @CommandLineProgramProperties(
         usage = " CollectWgsMetrics is a tool that computes a number of metrics that are useful for evaluating coverage" +
-                " and performance of whole genome sequencing (WGS) experiments.  These metrics include, the percentages" +
+                " and performance of whole genome sequencing (WGS) experiments.  These metrics include the percentages" +
                 " of bases that passed machine-generated and mapping quality filters and their coverage (depth)" +
                 " distributions within a genome.  Tool outputs raw values between 0 - 250X coverage as well as binning" +
                 " the outputs from 5X - 100X coverage in increments of 5 or 10%.  Both mapping quality and base quality" +
