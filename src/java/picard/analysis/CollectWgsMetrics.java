@@ -33,27 +33,28 @@ import java.util.List;
  * @author tfennell
  */
 @CommandLineProgramProperties(
-        usage = " CollectWgsMetrics is a tool that computes a number of metrics that are useful for evaluating coverage" +
-                " and performance of whole genome sequencing (WGS) experiments.  These metrics include the percentages of " +
-                "reads that pass base- and mapping- quality filters as well as coverage (read-depth) levels.  " +
-                "Both minimum base- and mapping-quality values as well as the maximum read depths (coverage cap) are user defined." +
-
-        "<h4>Usage Example:</h4>" +
-                "<pre>"  +
-                "java -jar picard.jar CollectWgsMetrics \\<br /> " +
-                "     -I=Input.bam \\<br /> "+
-                "     -O=Outputmetrics.txt \\<br /> " +
-                "     -R=ReferenceSequence.fasta " +
-                "</pre>" +
-        "For detailed explanations of the output metrics, please see: " +
-        "http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics" +
-        "<hr />"
-        ,
-        usageShort = "Computes a number of metrics that are useful for evaluating coverage and performance of whole" +
-                " genome sequencing experiments",
+        usage = CollectWgsMetrics.USAGE_SUMMARY + CollectWgsMetrics.USAGE_DETAILS,
+        usageShort = CollectWgsMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
+
 public class CollectWgsMetrics extends CommandLineProgram {
+    static final String USAGE_SUMMARY = "Computes a number of metrics that are useful for evaluating coverage and" +
+            " performance of whole genome sequencing experiments";
+    static final String USAGE_DETAILS = "CollectWgsMetrics is a tool that computes a number of metrics that are useful " +
+            "for evaluating coverage and performance of whole genome sequencing (WGS) experiments.  Metrics" +
+            " include the percentages of reads that pass base- and mapping- quality filters as well as coverage (read-depth) levels.  " +
+            "Both minimum base- and mapping-quality values as well as the maximum read depths (coverage cap) are user defined." +
+            "<h4>Usage Example:</h4>" +
+            "<pre>"  +
+            "java -jar picard.jar CollectWgsMetrics \\<br /> " +
+            "     -I=Input.bam \\<br /> "+
+            "     -O=Outputmetrics.txt \\<br /> " +
+            "     -R=ReferenceSequence.fasta " +
+            "</pre>" +
+            "For detailed explanations of the output metrics, please see: " +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics" +
+            "<hr />";
 
     @Option(shortName = StandardOptionDefinitions.INPUT_SHORT_NAME, doc = "Input SAM or BAM file.")
     public File INPUT;
