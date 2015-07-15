@@ -37,7 +37,6 @@ import java.util.List;
         usageShort = CollectWgsMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
-
 public class CollectWgsMetrics extends CommandLineProgram {
     static final String USAGE_SUMMARY = "Computes a number of metrics that are useful for evaluating coverage and" +
             " performance of whole genome sequencing experiments";
