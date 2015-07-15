@@ -34,16 +34,16 @@ import java.util.List;
  */
 @CommandLineProgramProperties(
         usage = " CollectWgsMetrics is a tool that computes a number of metrics that are useful for evaluating coverage" +
-                " and performance of whole genome sequencing (WGS) experiments.  These metrics include the percentages" +
-                " of bases that passed machine-generated and mapping quality filters as well as their coverage (read-depth).  " +
-                "Both minimum base- and mapping-quality values as well as the maximum read depth values (coverage cap) are user defined." +
+                " and performance of whole genome sequencing (WGS) experiments.  These metrics include the percentages of " +
+                "reads that pass base- and mapping- quality filters as well as coverage (read-depth) levels.  " +
+                "Both minimum base- and mapping-quality values as well as the maximum read depths (coverage cap) are user defined." +
 
         "<h4>Usage Example:</h4>" +
                 "<pre>"  +
                 "java -jar picard.jar CollectWgsMetrics \\<br /> " +
                 "     -I=Input.bam \\<br /> "+
-                "     -O=Outputmetrics.txt \\<br />" +
-                "     -R=ReferenceSequence.fasta" +
+                "     -O=Outputmetrics.txt \\<br /> " +
+                "     -R=ReferenceSequence.fasta " +
                 "</pre>" +
         "For detailed explanations of the output metrics, please see: " +
         "http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics" +
