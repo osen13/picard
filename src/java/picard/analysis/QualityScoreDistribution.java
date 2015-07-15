@@ -69,12 +69,9 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  " +
             "<br /> <br />" +
             "" +
-            "<ol>(1) Illumina, Inc. (2015).  Calculating Percent Passing Filter for Patterned and Non-Patterned " +
-            "Flow Cells: A comparison of methods for calculating percent passing filter on Illumina " +
-            "flow cells (hiseq-x-percent-pf-technical-note-770-2014-043.pdf)." +
+            "<ol>(1) support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
             "<br /> <br />" +
-            "(2) Ilumina (2014) HiSeq X System user guide. (support.illumina.com/content/dam/illumina-support/" +
-            "documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf)." +
+            "(2) support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf)." +
             "<br /> <br /> " +
             "<h4>Usage Example:</h4>" +
             "<pre>" +
