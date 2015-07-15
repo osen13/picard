@@ -67,7 +67,6 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "recalibrated quality scores.  The default is just the recalibrated scores obtained from the " +
             "BaseRecalibrator tool of GATK.  For additional information, please see:" +
             " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
-            "<br /> <br /> " +
             "<h4>Usage Example:</h4>" +
             "<pre>" +
             "java -jar picard.jar QualityScoreDistribution \\<br />" +
@@ -77,7 +76,7 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "</pre>" +
             "<ol>(1) support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
             "<br /> <br />" +
-            "(2) support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf)." +
+            "(2) support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
             "<hr />"
    ;
     @Option(shortName="CHART", doc="A file (with .pdf extension) to write the chart to.")
