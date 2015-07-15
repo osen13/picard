@@ -22,7 +22,7 @@ import java.util.List;
         programGroup = Metrics.class
 )
 public class CompareMetrics extends CommandLineProgram {
-    static final String USAGE_SUMMARY =  "Compares the headers of the two input metrics files";
+    static final String USAGE_SUMMARY =  "Compares two metrics files";
     static final String USAGE_DETAIL = "Compares the headers of the two input metrics files.  Outputs can be either equal" +
             " or not equal. <br /> "  +
             "<h4>Usage example:</h4>" +
