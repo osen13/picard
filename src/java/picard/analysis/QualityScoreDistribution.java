@@ -66,10 +66,10 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "If the original quality score (OQ) tag is present, histogram will plot both the OQ and the " +
             "recalibrated quality scores.  The default is just the recalibrated scores obtained from the " +
             "BaseRecalibrator tool of GATK.  For additional information, please see:" +
-            " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php.  " +
+            " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  " +
             "<br /> <br />" +
             "" +
-            "(1) Illumina, Inc. (2015).  Calculating Percent Passing Filter for Patterned and Non-Patterned " +
+            "<ol>(1) Illumina, Inc. (2015).  Calculating Percent Passing Filter for Patterned and Non-Patterned " +
             "Flow Cells: A comparison of methods for calculating percent passing filter on Illumina " +
             "flow cells (hiseq-x-percent-pf-technical-note-770-2014-043.pdf)." +
             "<br /> <br />" +
