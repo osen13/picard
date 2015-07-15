@@ -10,30 +10,32 @@ import picard.cmdline.programgroups.Metrics;
  * @author farjoun
  */
 @CommandLineProgramProperties(
-        usage = "Computes a number of metrics that are useful for evaluating coverage and performance of whole " +
-                "genome sequencing experiments using raw sequence data.  Although similar to the CollectWgsMetrics tool," +
-                " the defaults thresholds are different e.g. the CollectRawWgsMetrics has lower base and mapping quality" +
-                " score thresholds as well a higher coverage cap than the CollectWgsMetrics tool.<br /><br />" +
-                "Histogram output is optional and displays the numbers of reads for each particular depth as well as the " +
-                "mean value for the summed base-quality scores for each read." +
-                "<br />" +
-                "<h4>Usage example:</h4>" +
-                "<pre>" +
-                "java -jar picard.jar CollectRawWgsMetrics \\<br />" +
-                "     -I=MyBAM.bam \\<br />" +
-                "     -O=RAWwgsmetrics.txt \\<br />" +
-                "     -R=ReferenceSeq.fasta \\<br />" +
-                "     -INCLUDE_BQ_HISTOGRAM=true" +
-                "</pre>" +
-                "<hr />" +
-                "For detailed explanations of the output metrics, please see: " +
-        "http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics" +
-        "<hr />",
-        usageShort = "Writes whole genome sequencing-related metrics for a SAM or BAM file",
+        usage = CollectRawWgsMetrics.USAGE_SUMMARY + CollectRawWgsMetrics.USAGE_DETAILS,
+        usageShort = CollectRawWgsMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
 public class CollectRawWgsMetrics extends CollectWgsMetrics{
-
+    static final String USAGE_SUMMARY = "Writes whole genome sequencing-related metrics for a SAM or BAM file";
+    static final String USAGE_DETAILS = "Useful metrics for evaluating coverage and performance of whole " +
+            "genome sequencing experiments.  Although similar to the CollectWgsMetrics tool," +
+            " the default thresholds for CollectRawWgsMetrics are less stringent.  For example, the CollectRawWgsMetrics" +
+            " has lower base and mapping quality" +
+            " score thresholds as well a higher coverage cap than the CollectWgsMetrics tool.<br /><br />" +
+            "Histogram output is optional and displays the numbers of reads for each particular depth as well as the " +
+            "mean value for the summed base-quality scores for each read." +
+            "<br />" +
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar CollectRawWgsMetrics \\<br />" +
+            "     -I=MyBAM.bam \\<br />" +
+            "     -O=RAWwgsmetrics.txt \\<br />" +
+            "     -R=ReferenceSeq.fasta \\<br />" +
+            "     -INCLUDE_BQ_HISTOGRAM=true" +
+            "</pre>" +
+            "<hr />" +
+            "For detailed explanations of the output metrics, please see: " +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#CollectWgsMetrics.WgsMetrics" +
+            "<hr />";
     @Option(shortName="MQ", doc="Minimum mapping quality for a read to contribute coverage.")
     public int MINIMUM_MAPPING_QUALITY = 0;
 
