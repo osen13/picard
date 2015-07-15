@@ -74,7 +74,7 @@ public class CollectRrbsMetrics extends CommandLineProgram {
             "with a proofreading-deficient polymerase prevents amplification of unmethylated fragments. In contrast, " +
             "methylated sites are preserved and selectively amplified.  Sequencing of the amplified fragments" +
             "identifies the methylated regions of a genome.  Since only a fraction of the genome is methylated," +
-            "the amplified fragments comprise (~1% of the total) yet still include the majority of promoters, " +
+            "the amplified fragments comprise ~1% of the total, yet still include the majority of promoters, " +
             "as well as repeated sequence regions that are difficult to profile using conventional techniques." +
             "<br />" +
             "<h4>Usage example:</h4>" +
