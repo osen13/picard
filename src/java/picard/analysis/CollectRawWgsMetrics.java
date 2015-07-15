@@ -11,8 +11,11 @@ import picard.cmdline.programgroups.Metrics;
  */
 @CommandLineProgramProperties(
         usage = "Computes a number of metrics that are useful for evaluating coverage and performance of whole " +
-                "genome sequencing experiments. Defaults are different than for CollectWgsMetrics e.g. lacks baseQ and" +
-                " mappingQ filters and has much higher coverage cap." +
+                "genome sequencing experiments using raw sequence data.  Although similar to the CollectWgsMetrics tool," +
+                " the defaults thresholds are different e.g. the CollectRawWgsMetrics has lower base and mapping quality" +
+                " score thresholds as well a higher coverage cap than the CollectWgsMetrics tool.<br /><br />" +
+                "Histogram output is optional and displays the numbers of reads for each particular depth as well as the " +
+                "mean value for the summed base-quality scores for the reads." +
                 "<br />" +
                 "<h4>Usage example:</h4>" +
                 "<pre>" +
