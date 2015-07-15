@@ -15,7 +15,7 @@ import picard.cmdline.programgroups.Metrics;
                 " the defaults thresholds are different e.g. the CollectRawWgsMetrics has lower base and mapping quality" +
                 " score thresholds as well a higher coverage cap than the CollectWgsMetrics tool.<br /><br />" +
                 "Histogram output is optional and displays the numbers of reads for each particular depth as well as the " +
-                "mean value for the summed base-quality scores for the reads." +
+                "mean value for the summed base-quality scores for each read." +
                 "<br />" +
                 "<h4>Usage example:</h4>" +
                 "<pre>" +
