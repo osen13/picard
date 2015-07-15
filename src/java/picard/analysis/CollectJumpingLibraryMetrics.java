@@ -59,7 +59,6 @@ import java.util.List;
         usageShort = CollectJumpingLibraryMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
-
 public class CollectJumpingLibraryMetrics extends CommandLineProgram {
     static final String USAGE_SUMMARY = "SAM file generated with a jumping library, produced by the " +
             "CollectJumpingLibraryMetrics program.";
@@ -83,13 +82,12 @@ public class CollectJumpingLibraryMetrics extends CommandLineProgram {
             "assumes that the mate's MQ is greater than or equal to MINIMUM_MAPPING_QUALITY (default value is 0).<br /><br />  " +
             "Tool produces (txt) files with the extension \".jump_metrics\".  Add the (.txt) suffix to open file" +
                     " in a text editor." +
-                    "" +
                     "<br />" +
                     "<h4>Usage example:</h4>" +
                     "<pre>" +
                     "java -jar picard.jar CollectJumpingLibraryMetrics \\<br />" +
                     "     -I=MyBAM.bam  \\<br />" +
-                    "     -O=MyBAM.jump_metrics.txt <br />" +
+                    "     -O=MyBAM.jump_metrics.txt" +
                     "</pre>" +
                     "<hr />" +
                     "" +
