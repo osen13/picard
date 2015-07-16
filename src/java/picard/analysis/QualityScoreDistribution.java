@@ -64,7 +64,7 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "If the original quality score (OQ) tag is present, histogram will plot both the OQ and the " +
             "recalibrated quality scores.  The default values are the recalibrated scores obtained from the " +
             "BaseRecalibrator tool of GATK.  For additional information on the BaseRecalibrator, please see:" +
-            " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
+            " <br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
             "<h4>Usage Example:</h4>" +
             "<pre>" +
             "java -jar picard.jar QualityScoreDistribution \\<br />" +
@@ -76,7 +76,7 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "brightest and second brightest base intensities.  Clusters \"pass filter\" if no more than 1 base call has" +
             " a chastity value below 0.6 in the first 25 cycles.  For additional information, please see:" +
             "<li> support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
-            "support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
+            "<li> support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
             "<hr />"
    ;
     @Option(shortName="CHART", doc="A file (with .pdf extension) to write the chart to.")
