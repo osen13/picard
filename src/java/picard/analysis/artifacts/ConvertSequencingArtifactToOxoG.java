@@ -20,43 +20,33 @@ import java.util.Map;
 import java.util.Set;
 
 @CommandLineProgramProperties(
-        usage = "Converts all sequencing artifact errors including all bait-bias and pre-adapter artifacts to " +
-                "8-oxoguanine artifacts <br /><br />." +
-                "Oxidation of guanine to 8-oxoguanine can occur during library preparation of genomic DNA via a " +
-                "combination of heat, shearing, and metal contaminates in a sample (doi: 10.1093/nar/gks1443).  It is " +
-                "one of the most common artifacts associated with genomic library preparation." +
-                "In DNA, 8-oxoguanine can pair with " +
-                "either cytosine or adenine, ultimately leading to G→T transversion mutations during PCR amplification.  " +
-                "The variants (C→A)/(G→T) tend to occur in specific sequence contexts e.g. CCG→CAG" +
-                "(doi:10.1093/nar/gks1443).  Although occurring at relatively low frequencies," +
-                " these artifacts can have profound impacts on variant calling fidelity (doi:10.1093/nar/gks1443).  " +
-                "<br /><br />This tool calculates the Phred-scaled probability that an alternate base" +
-                " call results from an oxidation artifact.  This probability score is based on base context, sequencing" +
-                " read orientation, and the characteristic low allelic frequency (doi:10.1093/nar/gks1443).  Lower " +
-                "probability values implicate artifacts resulting from 8-oxoguanine, while higher probability values" +
-                " suggest that an alternate base call is due to either some other type of artifact or is a real variant." +
-                "<br /><br />" +
-                "Output from CollectSequencingArtifactMetrics is the input for this tool.  Only the prefix or base" +
-                " is required for the input file name e.g. \"Artifactmetrics\" from " +
-                "Artifactmetrics.txt.bait_bias_detail_metrics or Artifactmetrics.txt.pre_adapter_detail_metrics.  " +
-                "An output file entitled \"Artifactmetrics.oxog_metrics\" will be generated automatically.  " +
-                "A reference sequence is also required.<br />"          +
-
-                "<h4>Usage example:</h4>" +
-                "<pre>" +
-                "java -jar picard.jar ConvertSequencingArtifactToOxoG \\<br />" +
-                "     -I=Artifactmetrics \\<br />" +
-                "     -R=ReferenceSequence.fasta" +
-                "</pre>" +
-                "" +
-                "<hr />"
-        ,
-
-        usageShort = "Converts all sequencing artifacts to only 8-oxoguanine artifacts",
+        usage = ConvertSequencingArtifactToOxoG.USAGE_SUMMARY + ConvertSequencingArtifactToOxoG.USAGE_DETAILS,
+        usageShort = ConvertSequencingArtifactToOxoG.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
 public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
+    static final String USAGE_SUMMARY = "Converts all sequencing artifacts to only 8-oxoguanine artifacts";
+    static final String USAGE_DETAILS = "Converts all sequencing artifact errors including all bait-bias and pre-adapter artifacts to " +
+            "8-oxoguanine artifacts <br /><br />." +
+            ""+
+            "For details on bait-bias and pre-adapter artifacts, please see the CollectSequencingArtifactMetrics tool.  " +
+            "For details on  8-oxoguanine artifacts, please see the CollectOxoGMetrics documentation. <br /><br />" +
+            "" +
+            "Output from CollectSequencingArtifactMetrics is the input for this tool.  Only the base of the file name" +
+            " is required for the file name input.  For example, if the file name is Artifactmetrics.txt.bait_bias_detail_metrics" +
+            " or Artifactmetrics.txt.pre_adapter_detail_metrics, only the base of the file name \"Artifactmetrics\" is " +
+            "required on the command line for \"input\".  " +
+            "An output file entitled \"Artifactmetrics.oxog_metrics\" will be generated automatically.  " +
+            "A reference sequence is also required.<br />"+
 
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar ConvertSequencingArtifactToOxoG \\<br />" +
+            "     -I=Artifactmetrics \\<br />" +
+            "     -R=ReferenceSequence.fasta" +
+            "</pre>" +
+            "" +
+            "<hr />";
     @Option(shortName = StandardOptionDefinitions.INPUT_SHORT_NAME,
             doc = "Basename for input artifact metrics")
     public File INPUT_BASE;
