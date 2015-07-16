@@ -75,8 +75,8 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "*Chastity is defined as the ratio of the brightest base intensity divided by the sum of the " +
             "brightest and second brightest base intensities.  Clusters \"pass filter\" if no more than 1 base call has" +
             " a chastity value below 0.6 in the first 25 cycles.  For additional information, please see:" +
-            "<li> support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
-            "<li> support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
+            "     <li> support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
+            "     <li> support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
             "<hr />"
    ;
     @Option(shortName="CHART", doc="A file (with .pdf extension) to write the chart to.")
