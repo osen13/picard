@@ -36,7 +36,7 @@ public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
             " is required for the file name input.  For example, if the file name is Artifactmetrics.txt.bait_bias_detail_metrics" +
             " or Artifactmetrics.txt.pre_adapter_detail_metrics, only the base of the file name \"Artifactmetrics\" is " +
             "required on the command line for \"input\".  " +
-            "An output file entitled \"Artifactmetrics.oxog_metrics\" will be generated automatically.  " +
+            "An output file called \"Artifactmetrics.oxog_metrics\" will be generated automatically.  " +
             "A reference sequence is also required.<br />"+
 
             "<h4>Usage example:</h4>" +
