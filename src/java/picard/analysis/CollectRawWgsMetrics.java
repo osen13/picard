@@ -24,10 +24,8 @@ public class CollectRawWgsMetrics extends CollectWgsMetrics{
             " has lower base and mapping quality score thresholds as well a higher coverage cap than the CollectWgsMetrics" +
             " tool.<br /><br />" +
             "Histogram output is optional and for a given run, displays two separate outputs on the y-axis while using a single set" +
-            " of values for the x-axis." +
-            "Specifically, the first column in the histogram table (x-axis) is labeled \"coverage\" and represents" +
-            " different possible coverage depths." +
-            "However, it is also represents the range of values for the base quality scores and thus should probably be" +
+            " of values for the x-axis.  Specifically, the first column in the histogram table (x-axis) is labeled \"coverage\" and represents" +
+            " different possible coverage depths.  However, it is also represents the range of values for the base quality scores and thus should probably be" +
             " labeled \"sequence depth and base quality scores\".  " +
             "The second and third columns (y-axes) correspond to the numbers of bases at a specific sequence depth" +
             " \"count\" and the numbers of bases at a particular base quality score \"baseq_count\" respectively." +
