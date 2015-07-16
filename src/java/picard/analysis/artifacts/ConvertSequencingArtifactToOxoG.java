@@ -29,7 +29,7 @@ public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
     static final String USAGE_DETAILS = "Converts all sequencing artifact errors including all bait-bias and pre-adapter artifacts to " +
             "8-oxoguanine artifacts <br /><br />." +
             ""+
-            "For details on bait-bias and pre-adapter artifacts, please see the CollectSequencingArtifactMetrics tool.  " +
+            "For details on bait-bias and pre-adapter artifacts, please see the CollectSequencingArtifactMetrics tool documentation.  " +
             "For details on  8-oxoguanine artifacts, please see the CollectOxoGMetrics documentation. <br /><br />" +
             "" +
             "Output from CollectSequencingArtifactMetrics is the input for this tool.  Only the base of the file name" +
