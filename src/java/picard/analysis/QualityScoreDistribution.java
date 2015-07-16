@@ -54,19 +54,15 @@ import java.util.List;
 )
 public class QualityScoreDistribution extends SinglePassSamProgram {
     static final String USAGE_SUMMARY = "Program to chart quality score distributions in a SAM or BAM file.  ";
-    static final String USAGE_DETAIL = "  Data is " +
-            "useful for determining the overall \"quality\" of a given run. <br /> <br />" +
-            "This tool produces both a table and a chart indicating the range of quality scores and the total" +
+    static final String USAGE_DETAIL = "  This tool is used for determining the overall \"quality\" of a given run. "+
+            "Outputs both a chart and a table, which indicate the range of quality scores and the total" +
             " numbers of bases corresponding to those scores." +
-            "Output options include plotting " +
+            "Options include plotting " +
             "the distribution of all of the reads, only the aligned reads, or reads that have passed the Illumina " +
-            "Chastity filter thresholds (1).  Chastity is defined as the ratio of the brightest base intensity " +
-            "divided by the sum of the brightest and second brightest base intensities. Clusters 'pass filter' if " +
-            "no more than 1 base call has a chastity value below 0.6 in the first 25 cycles (2).  This filtration " +
-            "process removes the least reliable clusters from the image analysis results. " +
+            "Chastity filter thresholds (*).  This filtration process removes the least reliable clusters from the image analysis results. " +
             "<br /> <br />" +
             "If the original quality score (OQ) tag is present, histogram will plot both the OQ and the " +
-            "recalibrated quality scores.  The default is just the recalibrated scores obtained from the " +
+            "recalibrated quality scores.  The default values are the recalibrated scores obtained from the " +
             "BaseRecalibrator tool of GATK.  For additional information on the BaseRecalibrator, please see:" +
             " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
             "<h4>Usage Example:</h4>" +
@@ -76,9 +72,11 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "     -O=QualityScoreDistributionOutput.txt \\<br />" +
             "     -CHART=QualityScoreDistribution.pdf" +
             "</pre>" +
-            "<ol>(1) support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
-            "<br /> <br />" +
-            "(2) support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
+            "(*) Chastity is defined as the ratio of the brightest base intensity divided by the sum of the " +
+            "brightest and second brightest base intensities. Clusters 'pass filter' if no more than 1 base call has" +
+            " a chastity value below 0.6 in the first 25 cycles.  For additional information, please see:" +
+            "<br /> <br /> support.illumina.com/content/dam/illumina-marketing/documents/products/technotes/hiseq-x-percent-pf-technical-note-770-2014-043.pdf" +
+            "<br /> <br /> support.illumina.com/content/dam/illumina-support/documents/documentation/system_documentation/hiseqx/hiseq-x-user-guide-15050091c.pdf." +
             "<hr />"
    ;
     @Option(shortName="CHART", doc="A file (with .pdf extension) to write the chart to.")
