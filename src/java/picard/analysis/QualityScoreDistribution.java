@@ -64,7 +64,7 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "If the original quality score (OQ) tag is present, histogram will plot both the OQ and the " +
             "recalibrated quality scores.  The default values are the recalibrated scores obtained from the " +
             "BaseRecalibrator tool of GATK.  For additional information on the BaseRecalibrator, please see:" +
-            " <br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
+            "<br /><br />www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
             "<h4>Usage Example:</h4>" +
             "<pre>" +
             "java -jar picard.jar QualityScoreDistribution \\<br />" +
