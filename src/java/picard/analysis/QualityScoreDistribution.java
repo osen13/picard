@@ -52,10 +52,12 @@ import java.util.List;
         usageShort = QualityScoreDistribution.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
-
 public class QualityScoreDistribution extends SinglePassSamProgram {
     static final String USAGE_SUMMARY = "Program to chart quality score distributions in a SAM or BAM file ";
-    static final String USAGE_DETAIL = "Program to chart quality score distributions in a SAM or BAM file.  " +
+    static final String USAGE_DETAIL = "Program to chart quality score distributions in a SAM or BAM file.  Data is " +
+            "useful for determining the overall \"quality\" of a given run. <br /> <br />" +
+            "This tool produces both a table and a chart indicating the range of quality scores and the total" +
+            " numbers of bases corresponding to those scores." +
             "Output options include plotting " +
             "the distribution of all of the reads, only the aligned reads, or reads that have passed the Illumina " +
             "Chastity filter thresholds (1).  Chastity is defined as the ratio of the brightest base intensity " +
@@ -65,7 +67,7 @@ public class QualityScoreDistribution extends SinglePassSamProgram {
             "<br /> <br />" +
             "If the original quality score (OQ) tag is present, histogram will plot both the OQ and the " +
             "recalibrated quality scores.  The default is just the recalibrated scores obtained from the " +
-            "BaseRecalibrator tool of GATK.  For additional information, please see:" +
+            "BaseRecalibrator tool of GATK.  For additional information on the BaseRecalibrator, please see:" +
             " <br /><br /> www.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_bqsr_BaseRecalibrator.php  "+
             "<h4>Usage Example:</h4>" +
             "<pre>" +
