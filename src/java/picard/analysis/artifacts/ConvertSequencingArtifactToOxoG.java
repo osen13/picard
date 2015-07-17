@@ -29,8 +29,7 @@ public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
     static final String USAGE_DETAILS = "Extracts 8-oxoguanine artifacts from the output of " +
             "CollectSequencingArtifactsMetrics and converts them to the CollectOxoGMetrics format.<br /><br />." +
             "" +
-            "The CollectSequencingArtifactsMetrics tool provides detailed information on a variety of sequencing artifacts found in sequencing libraries. " +
-            "The 8-oxoguanine artifact is a preadapter artifact that results from DNA library construction.  " +
+            "The CollectSequencingArtifactsMetrics tool provides detailed information on a variety of artifacts found in sequencing libraries. "+
             "Please see the documentation for the CollectSequencingArtifactsMetrics and the CollectOxoGMetrics" +
             "for additional information. <br /><br />" +
             "" +
