@@ -22,20 +22,17 @@ import java.util.Set;
         programGroup = Metrics.class
 )
 public class CollectTargetedPcrMetrics extends CollectTargetedMetrics<TargetedPcrMetrics, TargetedPcrMetricsCollector> {
-    static final String USAGE_SUMMARY = "Produces targeted PCR-related metrics given the provided SAM/BAM";
-    static final String USAGE_DETAIL = "CollectTargetedPcrMetrics calculates a set of metrics to TSCA sequencing from an aligned SAM or" +
-            "BAM file.  If a reference sequence is provided, AT/GC dropout metrics will be calculated," +
-            "and the PER_TARGET_COVERAGE option can be used to output GC and mean coverage information" +
-            "for every target. " +
-            "" +
-            "TruSeq Custom Amplicon (TSCA) is an Illumina kit that allows researchers to sequence targeted " +
+    static final String USAGE_SUMMARY = "Produces targeted PCR-related metrics for a given SAM/BAM file.  ";
+    static final String USAGE_DETAIL = "<br /><br />This tool calculates a set of metrics to TSCA sequencing from an aligned SAM or" +
+            "BAM file.  TruSeq Custom Amplicon (TSCA) is an Illumina kit that allows researchers to sequence targeted " +
             "regions of interest in a genome.  Although there are many applications for using this targeted " +
-            "approach, it is frequently used for genomic regions of high or low GC content." +
-            "" +
-            "For additional information, please see:<br />" +
-            "www.illumina.com/content/dam/illumina-marketing/documents/products/datasheets/datasheet_truseq_custom_amplicon.pdf)." +
+            "approach, it is frequently used for genomic regions of high or low GC content.  For additional information, please see:" +
             "<br /><br />" +
-            "Among the outputs, the AT/GC dropout metrics indicate the degree of inadequate coverage of a " +
+            "www.illumina.com/content/dam/illumina-marketing/documents/products/datasheets/datasheet_truseq_custom_amplicon.pdf." +
+            "<br /><br />" +
+            "If a reference sequence is provided, AT/GC dropout metrics will be calculated and the PER_TARGET_COVERAGE" +
+            " option can be used to output GC content and mean coverage information for each target.  " +
+            "The AT/GC dropout metrics indicate the degree of inadequate coverage of a " +
             "particular region based on its AT or GC content." +
             "" +
             "<h4>Usage Example</h4>" +
