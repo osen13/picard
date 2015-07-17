@@ -26,13 +26,17 @@ import java.util.Set;
 )
 public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
     static final String USAGE_SUMMARY = "Converts all sequencing artifacts to only 8-oxoguanine artifacts";
-    static final String USAGE_DETAILS = "Converts all sequencing artifact errors including all bait-bias and pre-adapter artifacts to " +
-            "8-oxoguanine artifacts <br /><br />." +
-            "This tool is primarily used for validating the bait-bias and pre-adapter artifacts obtained by the " +
+    static final String USAGE_DETAILS = "Extracts 8-oxoguanine artifacts from the output of " +
+            "CollectSequencingArtifactsMetrics and converts them to the CollectOxoGMetrics format.<br /><br />." +
+            "" +
+            "The CollectSequencingArtifactsMetrics tool provides detailed information on a variety of sequencing artifacts found in sequencing libraries. " +
+            "The 8-oxoguanine artifact is a preadapter artifact that results from DNA library construction.  " +
+            "Please see the documentation for the CollectSequencingArtifactsMetrics and the CollectOxoGMetrics" +
+            "for additional information. <br /><br />" +
+            "" +
+            "This tool is primarily used for validating these (bait-bias and pre-adapter) artifacts obtained by the " +
             "CollectSequencingArtifactsMetrics tool.  Moreover, it can also be used in" +
-            " production runs to avoid using both the CollectSequencingArtifactsMetrics and the CollectOxoGMetrics tools. " +
-            "For details on bait-bias and pre-adapter artifacts, please see the CollectSequencingArtifactMetrics tool documentation.  " +
-            "For details on  8-oxoguanine artifacts, please see the CollectOxoGMetrics documentation. <br /><br />" +
+            " production runs to avoid using both the CollectSequencingArtifactsMetrics and the CollectOxoGMetrics tools.<br /><br />"+
             "" +
             "Output from CollectSequencingArtifactMetrics is the input for this tool.  Only the base of the file name" +
             " is required for the file name input.  For example, if the file name is Artifactmetrics.txt.bait_bias_detail_metrics" +
@@ -40,15 +44,16 @@ public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
             "required on the command line for \"input\".  " +
             "An output file called \"Artifactmetrics.oxog_metrics\" will be generated automatically.  " +
             "A reference sequence is also required.<br />"+
-
             "<h4>Usage example:</h4>" +
             "<pre>" +
             "java -jar picard.jar ConvertSequencingArtifactToOxoG \\<br />" +
             "     -I=Artifactmetrics \\<br />" +
             "     -R=ReferenceSequence.fasta" +
             "</pre>" +
-            "" +
-            "<hr />";
+            "For detailed explanations of the output metrics, please see:" +
+            "broadinstitute.github.io/picard/picard-metric-definitions.html#CollectOxoGMetrics.CpcgMetrics" +
+            "<hr />"
+            ;
     @Option(shortName = StandardOptionDefinitions.INPUT_SHORT_NAME,
             doc = "Basename for input artifact metrics")
     public File INPUT_BASE;
