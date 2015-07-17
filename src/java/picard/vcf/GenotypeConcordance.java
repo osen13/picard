@@ -93,15 +93,15 @@ public class GenotypeConcordance extends CommandLineProgram {
             "Output metrics include GenotypeConcordanceContingencyMetrics, GenotypeConcordanceSummaryMetrics, and " +
             "GenotypeConcordanceDetailMetrics.  For each set of metrics, the data is broken into separate sections for " +
             "SNPs and INDELs.  Note that only SNP and INDEL variants are considered, MNP, Symbolic, and Mixed classes" +
-            " of variants are not included. <br /> <br /> " +
+            " of variants are not included. <br /><br /> " +
 
-            "GenotypeConcordanceContingencyMetrics include the numbers of each contingent of alleles in a callset " +
-            "including true-positive (TP), true-negative (TN), false-positive (FP), and false-negative (FN) calls. Please see " +
+            "GenotypeConcordanceContingencyMetrics enumerate the constituents of each contingent in a callset " +
+            "including true-positive (TP), true-negative (TN), false-positive (FP), and false-negative (FN) calls.  Please see " +
             "http://broadinstitute.github.io/picard/picard-metric-definitions.html#GenotypeConcordanceContingencyMetrics" +
             " for additional details.<br /><br />  " +
             "" +
-            "GenotypeConcordanceDetailMetrics include the numbers of SNPs and INDELs for each genotype contingent as well " +
-            "as the number of genotypes matching the truthset.  " +
+            "GenotypeConcordanceDetailMetrics include the numbers of SNPs and INDELs for each contingent genotype as well " +
+            "as the number of validated genotypes.  " +
             "For example an output can contain the numbers of heterozygous genotypes in a callset, meaning one " +
             "reference and one variant allele (HET_REF_VAR1) as well as the number of HET_REF_VAR1 that have" +
             " corresponding matches in the truthset are output.      " +
