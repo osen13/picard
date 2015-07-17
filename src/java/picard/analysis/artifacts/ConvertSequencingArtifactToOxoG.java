@@ -28,7 +28,9 @@ public class ConvertSequencingArtifactToOxoG extends CommandLineProgram {
     static final String USAGE_SUMMARY = "Converts all sequencing artifacts to only 8-oxoguanine artifacts";
     static final String USAGE_DETAILS = "Converts all sequencing artifact errors including all bait-bias and pre-adapter artifacts to " +
             "8-oxoguanine artifacts <br /><br />." +
-            ""+
+            "This tool is primarily used for validating the bait-bias and pre-adapter artifacts obtained by the " +
+            "CollectSequencingArtifactsMetrics tool.  Moreover, it can also be used in" +
+            " production runs to avoid using both the CollectSequencingArtifactsMetrics and the CollectOxoGMetrics tools. " +
             "For details on bait-bias and pre-adapter artifacts, please see the CollectSequencingArtifactMetrics tool documentation.  " +
             "For details on  8-oxoguanine artifacts, please see the CollectOxoGMetrics documentation. <br /><br />" +
             "" +
