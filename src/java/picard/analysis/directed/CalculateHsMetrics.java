@@ -47,35 +47,40 @@ import java.util.TreeSet;
  */
 
 @CommandLineProgramProperties(
-        usage = "Calculates a set of Hybrid Selection-specific metrics from an aligned SAM or BAM file.  If a reference " +
-                "sequence is provided, AT/GC dropout metrics will be calculated, and the PER_TARGET_COVERAGE option can" +
-                " be used to output GC and mean coverage information for every target." +
-                "<br /><br />" +
-                "Hybrid selection (HS) enables targeted sequencing analysis via the capture of specified genomic DNA " +
-                "sequences e.g. exons, from samples of interest e.g. clinical sample (doi:10.1038/nbt.1523).  " +
-                "Synthetically produced RNAs encoding unique sequences from genes of interest (baits) are used to " +
-                "capture genomic DNA from a sample of interest via solution hybridization.  Targets captured by these " +
-                "baits are amplified and sequenced to identify unique variants in specific genomic regions of the " +
-                "sample of interest.  Sequences are aligned to the reference for analysis and the alignment " +
-                "efficacies are characterized and output. Bait intervals are the sequences used for baits and " +
-                "target intervals are the sequences of interest in the sample genomic DNA. " +
-                "<h4>Usage Example:</h4>"+
-                "<pre>" +
-                "java -jar picard.jar CalculateHsMetrics \\<br />" +
-                "     -I=Input.bam \\<br />" +
-                "     -O=HSMetrics.txt \\<br />" +
-                "     -R=ReferenceSequence.fasta \\<br />" +
-                "     -BAIT_INTERVALS=Baitintervallist.vcf \\<br />" +
-                "     -TARGET_INTERVALS=Targetintervallist.vcf" +
-                "</pre> "   +
-        "<hr />"
-        ,
-        usageShort = "Calculates a set of Hybrid Selection-specific metrics from an aligned SAM or BAM file ",
+        usage = CalculateHsMetrics.USAGE_SUMMARY + CalculateHsMetrics.USAGE_DETAILS,
+        usageShort = CalculateHsMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
-
 public class CalculateHsMetrics extends CollectTargetedMetrics<HsMetrics, HsMetricCollector> {
-
+    static final String USAGE_SUMMARY = "Calculates a set of Hybrid Selection-specific metrics from an aligned SAM or BAM file "  ;
+    static final String USAGE_DETAILS = "Calculates hybrid Selection-specific metrics from aligned SAM or BAM files. <br /><br />  " +
+            "Hybrid selection (HS) enables targeted sequencing analysis via the capture of specified genomic DNA " +
+            "sequences (doi:10.1038/nbt.1523).  It is commonly used to characterize exon sequences from genomic DNA " +
+            "or filter out bacterial DNA sequences from clinical samples.<br /><br /> " +
+            "The technique captures unique regions of genomic DNA (targets) from a biological samples via the hybridization of synthetically" +
+            " produced RNAs (baits) via solution hybridization.  The baits are synthesized with biotinylated nucleotides" +
+            " to facilitate capture of bait:target hybrids on streptavidin beads." +
+            "Targets captured by these baits are amplified, sequenced, and processed for variant calling." +
+            "" +
+            "Sequences are aligned to the reference sequence and the alignment " +
+            "efficacies are characterized and output.  Bait intervals are the sequences used for baits and " +
+            "target intervals are the sequences of interest in the sample genomic DNA. "  +
+            "" +
+            "The tool produces both AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of " +
+            "reads dropped from an analysis due to the inability to map to the reference as result of excessively " +
+            "AT-rich or GC-rich regions respectfully. <br /><br />" +
+            "The PER_TARGET_COVERAGE option can be used to output GC content and mean sequence depth information for every target." +
+            "<br /><br />" +
+            "<h4>Usage Example:</h4>"+
+            "<pre>" +
+            "java -jar picard.jar CalculateHsMetrics \\<br />" +
+            "     -I=Input.bam \\<br />" +
+            "     -O=HSMetrics.txt \\<br />" +
+            "     -R=ReferenceSequence.fasta \\<br />" +
+            "     -BAIT_INTERVALS=Baitintervallist.vcf \\<br />" +
+            "     -TARGET_INTERVALS=Targetintervallist.vcf" +
+            "</pre> "   +
+            "<hr />";
     @Option(shortName = "BI", doc = "An interval list file that contains the locations of the baits used.", minElements=1)
     public List<File> BAIT_INTERVALS;
 
