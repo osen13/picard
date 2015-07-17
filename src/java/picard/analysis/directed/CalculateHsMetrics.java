@@ -52,7 +52,7 @@ import java.util.TreeSet;
         programGroup = Metrics.class
 )
 public class CalculateHsMetrics extends CollectTargetedMetrics<HsMetrics, HsMetricCollector> {
-    static final String USAGE_SUMMARY = "Calculates hybrid Selection-specific metrics from aligned SAM or BAM files.";
+    static final String USAGE_SUMMARY = "Calculates hybrid Selection-specific metrics from aligned SAM or BAM files.  ";
     static final String USAGE_DETAILS = "Hybrid selection (HS) enables targeted sequencing analysis via the capture of specified genomic DNA " +
             "sequences (doi:10.1038/nbt.1523).  It is commonly used to characterize exon sequences from genomic DNA " +
             "or filter out bacterial DNA sequences from clinical samples.  <br /><br /> " +
@@ -68,14 +68,14 @@ public class CalculateHsMetrics extends CollectTargetedMetrics<HsMetrics, HsMetr
             "<br /><br />Tool provides multiple outputs including:" +
             "<li>The numbers of aligned reads that pass the sequencing vendor's quality filter (PF) " +
             "<li>The numbers of reads and their constituent bases that map to the reference sequence " +
-            "<li>The per read and per base coverage depth for both bait and target intervals" +
-            "<li>Hybrid selection penalty values; defined as the cost incurred to get 80% of target bases" +
+            "<li>The per read and per base coverage depth for both bait and target intervals<br /><br />" +
+            "The tool also calculates hybrid selection penalty values; defined as the cost incurred to get 80% of target bases" +
             " to a specific amount of depth coverage.  For example, if a design consists of 10 megabases of target and" +
-            " 10X coverage depth is required, then the amount of sequencing needed is the PF_ALIGNED_BASES = 10^7 * 10 * HS_PENALTY_10X "+
+            " 10X coverage depth is required, then the amount of sequencing needed is the PF_ALIGNED_BASES = 10^7 * 10 * HS_PENALTY_10X.<br /><br />" +
             "" +
-            "The tool also produces both AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of " +
+            "Both AT_DROPOUT and GC_DROPOUT metrics are indicated.  These metrics indicate the percentage of " +
             "reads dropped from an analysis due to the inability to map to the reference as result of excessively " +
-            "AT- or GC-rich regions respectfully. <br /><br />" +
+            "AT- or GC-rich regions respectfully.<br /><br />" +
 
             "The PER_TARGET_COVERAGE option can be used to output GC content and mean sequence depth information for every target interval." +
             "<br /><br />" +
@@ -90,7 +90,7 @@ public class CalculateHsMetrics extends CollectTargetedMetrics<HsMetrics, HsMetr
             "</pre> "   +
 
             "Additional information on output metrics can be found at:<br /><br />" +
-            "https://broadinstitute.github.io/picard/picard-metric-definitions.html#HsMetrics" +
+            "http://broadinstitute.github.io/picard/picard-metric-definitions.html#HsMetrics" +
             "<hr />"
             ;
     @Option(shortName = "BI", doc = "An interval list file that contains the locations of the baits used.", minElements=1)
