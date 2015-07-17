@@ -52,24 +52,32 @@ import java.util.TreeSet;
         programGroup = Metrics.class
 )
 public class CalculateHsMetrics extends CollectTargetedMetrics<HsMetrics, HsMetricCollector> {
-    static final String USAGE_SUMMARY = "Calculates a set of Hybrid Selection-specific metrics from an aligned SAM or BAM file "  ;
-    static final String USAGE_DETAILS = "Calculates hybrid Selection-specific metrics from aligned SAM or BAM files. <br /><br />  " +
-            "Hybrid selection (HS) enables targeted sequencing analysis via the capture of specified genomic DNA " +
+    static final String USAGE_SUMMARY = "Calculates hybrid Selection-specific metrics from aligned SAM or BAM files.";
+    static final String USAGE_DETAILS = "Hybrid selection (HS) enables targeted sequencing analysis via the capture of specified genomic DNA " +
             "sequences (doi:10.1038/nbt.1523).  It is commonly used to characterize exon sequences from genomic DNA " +
-            "or filter out bacterial DNA sequences from clinical samples.<br /><br /> " +
-            "The technique captures unique regions of genomic DNA (targets) from a biological samples via the hybridization of synthetically" +
-            " produced RNAs (baits) via solution hybridization.  The baits are synthesized with biotinylated nucleotides" +
-            " to facilitate capture of bait:target hybrids on streptavidin beads." +
-            "Targets captured by these baits are amplified, sequenced, and processed for variant calling." +
+            "or filter out bacterial DNA sequences from clinical samples.  <br /><br /> " +
             "" +
-            "Sequences are aligned to the reference sequence and the alignment " +
-            "efficacies are characterized and output.  Bait intervals are the sequences used for baits and " +
-            "target intervals are the sequences of interest in the sample genomic DNA. "  +
+            "The technique involves the capture of unique regions of genomic DNA (targets) using synthetic RNA (or DNA) baits." +
+            "   The baits are synthesized with biotinylated nucleotides to facilitate capture of bait:target hybrids on" +
+            " streptavidin beads.  The captured target sequences are amplified, sequenced, and processed for variant calling <br /><br />." +
             "" +
-            "The tool produces both AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of " +
+            "This tool requires an aligned SAM or BAM file as well as bait and target interval files.  " +
+            "The bait and target files are VCF formatted.  For information on VCF files, please see:" +
+            "<br /><br />www.1000genomes.org/wiki/analysis/variant%20call%20format/vcf-variant-call-format-version-41" +
+            "" +
+            "<br /><br />Tool provides multiple outputs including:" +
+            "<li>The numbers of aligned reads that pass the sequencing vendor's quality filter (PF) " +
+            "<li>The numbers of reads and their constituent bases that map to the reference sequence " +
+            "<li>The per read and per base coverage depth for both bait and target intervals" +
+            "<li>Hybrid selection penalty values; defined as the cost incurred to get 80% of target bases" +
+            " to a specific amount of depth coverage.  For example, if a design consists of 10 megabases of target and" +
+            " 10X coverage depth is required, then the amount of sequencing needed is the PF_ALIGNED_BASES = 10^7 * 10 * HS_PENALTY_10X "+
+            "" +
+            "The tool also produces both AT_DROPOUT and GC_DROPOUT metrics, which indicate the percentage of " +
             "reads dropped from an analysis due to the inability to map to the reference as result of excessively " +
-            "AT-rich or GC-rich regions respectfully. <br /><br />" +
-            "The PER_TARGET_COVERAGE option can be used to output GC content and mean sequence depth information for every target." +
+            "AT- or GC-rich regions respectfully. <br /><br />" +
+
+            "The PER_TARGET_COVERAGE option can be used to output GC content and mean sequence depth information for every target interval." +
             "<br /><br />" +
             "<h4>Usage Example:</h4>"+
             "<pre>" +
@@ -80,7 +88,11 @@ public class CalculateHsMetrics extends CollectTargetedMetrics<HsMetrics, HsMetr
             "     -BAIT_INTERVALS=Baitintervallist.vcf \\<br />" +
             "     -TARGET_INTERVALS=Targetintervallist.vcf" +
             "</pre> "   +
-            "<hr />";
+
+            "Additional information on output metrics can be found at:<br /><br />" +
+            "https://broadinstitute.github.io/picard/picard-metric-definitions.html#HsMetrics" +
+            "<hr />"
+            ;
     @Option(shortName = "BI", doc = "An interval list file that contains the locations of the baits used.", minElements=1)
     public List<File> BAIT_INTERVALS;
 
