@@ -37,12 +37,12 @@ public class CollectTargetedPcrMetrics extends CollectTargetedMetrics<TargetedPc
             "" +
             "<h4>Usage Example</h4>" +
             "<pre>" +
-            "   java -jar picard.jar CollectTargetedPcrMetrics \\<br /> " +
-            "        -I=input.bam \\<br />" +
-            "        -O=PCRMetrics.bam \\<br />" +
-            "        -R=ReferenceSequence.fasta \\<br />" +
-            "        -AMPLICON_INTERVALS=Ampliconintervallist.vcf \\<br />" +
-            "        -TARGET_INTERVALS=Targetedintervallist.vcf" +
+            "java -jar picard.jar CollectTargetedPcrMetrics \\<br /> " +
+            "     -I=input.bam \\<br /> " +
+            "     -O=PCRMetrics.bam \\<br /> " +
+            "     -R=ReferenceSequence.fasta \\<br /> " +
+            "     -AMPLICON_INTERVALS=Ampliconintervallist.vcf \\<br /> " +
+            "     -TARGET_INTERVALS=Targetedintervallist.vcf " +
             "</pre>" +
             "" +
             "For explanations of the output metrics, see " +
