@@ -26,6 +26,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Computes a number of metrics that are useful for evaluating coverage and performance of whole genome sequencing experiments.
@@ -153,57 +160,150 @@ public class CollectWgsMetrics extends CommandLineProgram {
         iterator.setIncludeNonPfReads(false);
 
         final int max = COVERAGE_CAP;
-        final long[] HistogramArray = new long[max + 1];
-        final long[] baseQHistogramArray = new long[Byte.MAX_VALUE];
+        final AtomicLong[] HistogramArray = new AtomicLong[max + 1];
+        for(int i = 0; i < max + 1; i++) {
+        	HistogramArray[i] = new AtomicLong(0);
+        }
+        final AtomicLong[] baseQHistogramArray = new AtomicLong[Byte.MAX_VALUE];
+        for(int i = 0; i < Byte.MAX_VALUE; i++) {
+        	baseQHistogramArray[i] = new AtomicLong(0);
+        }
         final boolean usingStopAfter = STOP_AFTER > 0;
         final long stopAfter = STOP_AFTER - 1;
         long counter = 0;
 
-        long basesExcludedByBaseq = 0;
-        long basesExcludedByOverlap = 0;
-        long basesExcludedByCapping = 0;
+        final AtomicLong basesExcludedByBaseq = new AtomicLong(0);
+        final AtomicLong basesExcludedByOverlap = new AtomicLong(0);
+        final AtomicLong basesExcludedByCapping = new AtomicLong(0);
+        
+        //Runtime.getRuntime().availableProcessors();
+        long freeMem = Runtime.getRuntime().freeMemory();
+    	
+    	int maxInfos = 100; //!
+    	int threads = 4;//Runtime.getRuntime().availableProcessors();
+    	int sems = threads;
+    	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2)); //!
+    	System.out.println("!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
+    	    	
+        final ExecutorService service = Executors.newFixedThreadPool(threads); //!
+        //final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
+        
+        List<SamLocusIterator.LocusInfo> infos = new ArrayList<SamLocusIterator.LocusInfo>(maxInfos); //!
+        //final Semaphore sem = new Semaphore(sems); //!
 
+		int count = 0;
         // Loop through all the loci
         while (iterator.hasNext()) {
             final SamLocusIterator.LocusInfo info = iterator.next();
-
+        	
             // Check that the reference is not N
             final ReferenceSequence ref = refWalker.get(info.getSequenceIndex());
             final byte base = ref.getBases()[info.getPosition() - 1];
             if (base == 'N') continue;
+            
+            infos.add(info);
+            
+            if (++count < maxInfos) continue;
+            count = 0;
+            
+            /*try {
+				sem.acquire();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}*/
+            
+            final List<SamLocusIterator.LocusInfo> tmpInfos = infos;
+            /*try {
+				queue.put(infos);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+			infos = new ArrayList<SamLocusIterator.LocusInfo>(maxInfos);
+            
+            service.submit(new Runnable() {
 
-            // Figure out the coverage while not counting overlapping reads twice, and excluding various things
-            final HashSet<String> readNames = new HashSet<String>(info.getRecordAndPositions().size());
-            int pileupSize = 0;
-            for (final SamLocusIterator.RecordAndOffset recs : info.getRecordAndPositions()) {
+    			@Override
+    			public void run() {
+    				long tmpBasesExcludedByBaseq = 0;
+    				long tmpBasesExcludedByOverlap = 0;
+    				long tmpBasesExcludedByCapping = 0;
+    				long[] tmpBaseQHistogramArray = new long[Byte.MAX_VALUE];
+    				long[] tmpHistogramArray = new long[max + 1];
+    				
+    				//try {
+	    				//List<SamLocusIterator.LocusInfo> tmpInfos;
+						
+						//tmpInfos = queue.take();
+						
+	    				for(SamLocusIterator.LocusInfo inf: tmpInfos) {
+	    					// Figure out the coverage while not counting overlapping reads twice, and excluding various things
+	    		            final HashSet<String> readNames = new HashSet<String>(inf.getRecordAndPositions().size());
+	    		            int pileupSize = 0;
+	    		            for (final SamLocusIterator.RecordAndOffset recs : inf.getRecordAndPositions()) {
+	
+	    		                if (recs.getBaseQuality() < MINIMUM_BASE_QUALITY)                   { ++tmpBasesExcludedByBaseq;   continue; }
+	    		                if (!readNames.add(recs.getRecord().getReadName()))                 { ++tmpBasesExcludedByOverlap; continue; }
+	    		                pileupSize++;
+	    		                if (pileupSize <= max) {
+	    		                    tmpBaseQHistogramArray[recs.getRecord().getBaseQualities()[recs.getOffset()]]++;
+	    		                }
+	    		            }
+	
+	    		            final int depth = Math.min(readNames.size(), max);
+	    		            if (depth < readNames.size()) tmpBasesExcludedByCapping += readNames.size() - max;
+	    		            tmpHistogramArray[depth]++;
+	    		            
+	    		            //progress.record(inf.getSequenceName(), inf.getPosition());
+	    				}
+    				
+    				/*} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}*/
+    				
+    				basesExcludedByBaseq.addAndGet(tmpBasesExcludedByBaseq);
+    				basesExcludedByOverlap.addAndGet(tmpBasesExcludedByOverlap);
+    				basesExcludedByCapping.addAndGet(tmpBasesExcludedByCapping);
+    				for(int i = 0; i < baseQHistogramArray.length; i++) {
+    					baseQHistogramArray[i].addAndGet(tmpBaseQHistogramArray[i]);
+    				}
+    				for(int i = 0; i < HistogramArray.length; i++) {
+    					HistogramArray[i].addAndGet(tmpHistogramArray[i]);
+    				}
+    				
+    				//sem.release();
+    			}
+    		}); 
 
-                if (recs.getBaseQuality() < MINIMUM_BASE_QUALITY)                   { ++basesExcludedByBaseq;   continue; }
-                if (!readNames.add(recs.getRecord().getReadName()))                 { ++basesExcludedByOverlap; continue; }
-                pileupSize++;
-                if (pileupSize <= max) {
-                    baseQHistogramArray[recs.getRecord().getBaseQualities()[recs.getOffset()]]++;
-                }
-            }
-
-            final int depth = Math.min(readNames.size(), max);
-            if (depth < readNames.size()) basesExcludedByCapping += readNames.size() - max;
-            HistogramArray[depth]++;
-
-            // Record progress and perhaps stop
-            progress.record(info.getSequenceName(), info.getPosition());
-            if (usingStopAfter && ++counter > stopAfter) break;
+            if (usingStopAfter && (counter += maxInfos) > stopAfter) break;
         }
+        
+        //!---
+        service.shutdown();
 
+		try {
+			service.awaitTermination(1, TimeUnit.DAYS);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		//---
+
+		long[] HistArray = new long[max + 1];
+		for(int i = 0; i < max + 1; i++) {
+        	HistArray[i] = HistogramArray[i].get();
+        }
+		
         // Construct and write the outputs
         final Histogram<Integer> histo = new Histogram<Integer>("coverage", "count");
-        for (int i = 0; i < HistogramArray.length; ++i) {
-            histo.increment(i, HistogramArray[i]);
+        for (int i = 0; i < HistArray.length; ++i) {
+            histo.increment(i, HistArray[i]);
         }
 
         // Construct and write the outputs
         final Histogram<Integer> baseQHisto = new Histogram<Integer>("value", "baseq_count");
         for (int i=0; i<baseQHistogramArray.length; ++i) {
-            baseQHisto.increment(i, baseQHistogramArray[i]);
+            baseQHisto.increment(i, baseQHistogramArray[i].get());
         }
 
         final WgsMetrics metrics = generateWgsMetrics();
@@ -217,28 +317,28 @@ public class CollectWgsMetrics extends CommandLineProgram {
         final long basesExcludedByMapq = mapqFilter.getFilteredBases();
         final long basesExcludedByPairing = pairFilter.getFilteredBases();
         final double total = histo.getSum();
-        final double totalWithExcludes = total + basesExcludedByDupes + basesExcludedByMapq + basesExcludedByPairing + basesExcludedByBaseq + basesExcludedByOverlap + basesExcludedByCapping;
+        final double totalWithExcludes = total + basesExcludedByDupes + basesExcludedByMapq + basesExcludedByPairing + basesExcludedByBaseq.get() + basesExcludedByOverlap.get() + basesExcludedByCapping.get();
         metrics.PCT_EXC_DUPE = basesExcludedByDupes / totalWithExcludes;
         metrics.PCT_EXC_MAPQ = basesExcludedByMapq / totalWithExcludes;
         metrics.PCT_EXC_UNPAIRED = basesExcludedByPairing / totalWithExcludes;
-        metrics.PCT_EXC_BASEQ = basesExcludedByBaseq / totalWithExcludes;
-        metrics.PCT_EXC_OVERLAP = basesExcludedByOverlap / totalWithExcludes;
-        metrics.PCT_EXC_CAPPED = basesExcludedByCapping / totalWithExcludes;
+        metrics.PCT_EXC_BASEQ = basesExcludedByBaseq.get() / totalWithExcludes;
+        metrics.PCT_EXC_OVERLAP = basesExcludedByOverlap.get() / totalWithExcludes;
+        metrics.PCT_EXC_CAPPED = basesExcludedByCapping.get() / totalWithExcludes;
         metrics.PCT_EXC_TOTAL = (totalWithExcludes - total) / totalWithExcludes;
 
-        metrics.PCT_5X = MathUtil.sum(HistogramArray, 5, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_10X = MathUtil.sum(HistogramArray, 10, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_15X = MathUtil.sum(HistogramArray, 15, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_20X = MathUtil.sum(HistogramArray, 20, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_25X = MathUtil.sum(HistogramArray, 25, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_30X = MathUtil.sum(HistogramArray, 30, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_40X = MathUtil.sum(HistogramArray, 40, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_50X = MathUtil.sum(HistogramArray, 50, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_60X = MathUtil.sum(HistogramArray, 60, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_70X = MathUtil.sum(HistogramArray, 70, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_80X = MathUtil.sum(HistogramArray, 80, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_90X = MathUtil.sum(HistogramArray, 90, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
-        metrics.PCT_100X = MathUtil.sum(HistogramArray, 100, HistogramArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_5X = MathUtil.sum(HistArray, 5, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_10X = MathUtil.sum(HistArray, 10, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_15X = MathUtil.sum(HistArray, 15, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_20X = MathUtil.sum(HistArray, 20, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_25X = MathUtil.sum(HistArray, 25, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_30X = MathUtil.sum(HistArray, 30, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_40X = MathUtil.sum(HistArray, 40, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_50X = MathUtil.sum(HistArray, 50, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_60X = MathUtil.sum(HistArray, 60, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_70X = MathUtil.sum(HistArray, 70, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_80X = MathUtil.sum(HistArray, 80, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_90X = MathUtil.sum(HistArray, 90, HistArray.length) / (double) metrics.GENOME_TERRITORY;
+        metrics.PCT_100X = MathUtil.sum(HistArray, 100, HistArray.length) / (double) metrics.GENOME_TERRITORY;
 
         final MetricsFile<WgsMetrics, Integer> out = getMetricsFile();
         out.addMetric(metrics);
