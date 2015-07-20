@@ -179,7 +179,7 @@ public class CollectWgsMetrics extends CommandLineProgram {
         //Runtime.getRuntime().availableProcessors();
         long freeMem = Runtime.getRuntime().freeMemory();
     	
-    	int maxInfos = 1000; //!
+    	int maxInfos = 100; //!
     	int threads = 4;//Runtime.getRuntime().availableProcessors();
     	int sems = 6;//(int) (freeMem/(20*maxInfos*300*2));//8;
     	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2));//!
@@ -203,6 +203,7 @@ public class CollectWgsMetrics extends CommandLineProgram {
             
             infos.add(info);
             
+            progress.record(info.getSequenceName(), info.getPosition());
             if (usingStopAfter && counter++ > stopAfter) break;
             if (++count < maxInfos) continue;
             count = 0;
@@ -211,7 +212,7 @@ public class CollectWgsMetrics extends CommandLineProgram {
 				sem.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			} 
             
             final List<SamLocusIterator.LocusInfo> tmpInfos = infos;
             /*try {
@@ -254,8 +255,6 @@ public class CollectWgsMetrics extends CommandLineProgram {
 	    		            final int depth = Math.min(readNames.size(), max);
 	    		            if (depth < readNames.size()) tmpBasesExcludedByCapping += readNames.size() - max;
 	    		            tmpHistogramArray[depth]++;
-	    		            
-	    		            //progress.record(inf.getSequenceName(), inf.getPosition());
 	    				}
     				
     				/*} catch (InterruptedException e) {

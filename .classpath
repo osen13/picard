@@ -2,11 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/ant/bcel-5.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Darja/Dropbox/Epam/ws_res/picard/lib/com-sun-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Darja/Dropbox/Epam/ws_res/picard/lib/guava-15.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Darja/Dropbox/Epam/ws_res/picard/lib/testng-5.5-jdk15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Darja/Dropbox/Epam/ws_res/picard/lib/ant/ant-1.8.1-apache-bcel.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Darja/Dropbox/Epam/ws_res/picard/lib/ant/bcel-5.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Darja/Dropbox/Epam/ws_res/picard/htsjdk/dist/htsjdk-1.135.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
