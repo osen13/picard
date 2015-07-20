@@ -181,15 +181,81 @@ public class CollectWgsMetrics extends CommandLineProgram {
     	
     	int maxInfos = 100; //!
     	int threads = 4;//Runtime.getRuntime().availableProcessors();
-    	int sems = threads;
-    	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2)); //!
+    	int sems = 6;
+    	int queueCapacity = 10;//(int) (freeMem/(10*maxInfos*300*2)); //!
     	System.out.println("!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
     	    	
         final ExecutorService service = Executors.newFixedThreadPool(threads); //!
-        //final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
+        final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
+        final Semaphore sem = new Semaphore(sems); //!
+        
+        service.submit(new Runnable() {
+        	@Override
+			public void run() {
+        		try {
+					sem.acquire();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+        		
+		        service.submit(new Runnable() {
+		
+					@Override
+					public void run() {
+						long tmpBasesExcludedByBaseq = 0;
+						long tmpBasesExcludedByOverlap = 0;
+						long tmpBasesExcludedByCapping = 0;
+						long[] tmpBaseQHistogramArray = new long[Byte.MAX_VALUE];
+						long[] tmpHistogramArray = new long[max + 1];
+						
+						try {
+		    				List<SamLocusIterator.LocusInfo> tmpInfos;
+							
+							tmpInfos = queue.take();
+							
+		    				for(SamLocusIterator.LocusInfo inf: tmpInfos) {
+		    					// Figure out the coverage while not counting overlapping reads twice, and excluding various things
+		    		            final HashSet<String> readNames = new HashSet<String>(inf.getRecordAndPositions().size());
+		    		            int pileupSize = 0;
+		    		            for (final SamLocusIterator.RecordAndOffset recs : inf.getRecordAndPositions()) {
+		
+		    		                if (recs.getBaseQuality() < MINIMUM_BASE_QUALITY)                   { ++tmpBasesExcludedByBaseq;   continue; }
+		    		                if (!readNames.add(recs.getRecord().getReadName()))                 { ++tmpBasesExcludedByOverlap; continue; }
+		    		                pileupSize++;
+		    		                if (pileupSize <= max) {
+		    		                    tmpBaseQHistogramArray[recs.getRecord().getBaseQualities()[recs.getOffset()]]++;
+		    		                }
+		    		            }
+		
+		    		            final int depth = Math.min(readNames.size(), max);
+		    		            if (depth < readNames.size()) tmpBasesExcludedByCapping += readNames.size() - max;
+		    		            tmpHistogramArray[depth]++;
+		    		            
+		    		            //progress.record(inf.getSequenceName(), inf.getPosition());
+		    				}
+						
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+						basesExcludedByBaseq.addAndGet(tmpBasesExcludedByBaseq);
+						basesExcludedByOverlap.addAndGet(tmpBasesExcludedByOverlap);
+						basesExcludedByCapping.addAndGet(tmpBasesExcludedByCapping);
+						for(int i = 0; i < baseQHistogramArray.length; i++) {
+							baseQHistogramArray[i].addAndGet(tmpBaseQHistogramArray[i]);
+						}
+						for(int i = 0; i < HistogramArray.length; i++) {
+							HistogramArray[i].addAndGet(tmpHistogramArray[i]);
+						}
+						
+						sem.release();
+					}
+				});
+        	}
+        });
         
         List<SamLocusIterator.LocusInfo> infos = new ArrayList<SamLocusIterator.LocusInfo>(maxInfos); //!
-        //final Semaphore sem = new Semaphore(sems); //!
 
 		int count = 0;
         // Loop through all the loci
@@ -206,75 +272,16 @@ public class CollectWgsMetrics extends CommandLineProgram {
             if (++count < maxInfos) continue;
             count = 0;
             
-            /*try {
-				sem.acquire();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}*/
-            
-            final List<SamLocusIterator.LocusInfo> tmpInfos = infos;
-            /*try {
+            //final List<SamLocusIterator.LocusInfo> tmpInfos = infos;
+            try {
 				queue.put(infos);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}*/
+			}
 			infos = new ArrayList<SamLocusIterator.LocusInfo>(maxInfos);
             
-            service.submit(new Runnable() {
-
-    			@Override
-    			public void run() {
-    				long tmpBasesExcludedByBaseq = 0;
-    				long tmpBasesExcludedByOverlap = 0;
-    				long tmpBasesExcludedByCapping = 0;
-    				long[] tmpBaseQHistogramArray = new long[Byte.MAX_VALUE];
-    				long[] tmpHistogramArray = new long[max + 1];
-    				
-    				//try {
-	    				//List<SamLocusIterator.LocusInfo> tmpInfos;
-						
-						//tmpInfos = queue.take();
-						
-	    				for(SamLocusIterator.LocusInfo inf: tmpInfos) {
-	    					// Figure out the coverage while not counting overlapping reads twice, and excluding various things
-	    		            final HashSet<String> readNames = new HashSet<String>(inf.getRecordAndPositions().size());
-	    		            int pileupSize = 0;
-	    		            for (final SamLocusIterator.RecordAndOffset recs : inf.getRecordAndPositions()) {
-	
-	    		                if (recs.getBaseQuality() < MINIMUM_BASE_QUALITY)                   { ++tmpBasesExcludedByBaseq;   continue; }
-	    		                if (!readNames.add(recs.getRecord().getReadName()))                 { ++tmpBasesExcludedByOverlap; continue; }
-	    		                pileupSize++;
-	    		                if (pileupSize <= max) {
-	    		                    tmpBaseQHistogramArray[recs.getRecord().getBaseQualities()[recs.getOffset()]]++;
-	    		                }
-	    		            }
-	
-	    		            final int depth = Math.min(readNames.size(), max);
-	    		            if (depth < readNames.size()) tmpBasesExcludedByCapping += readNames.size() - max;
-	    		            tmpHistogramArray[depth]++;
-	    		            
-	    		            //progress.record(inf.getSequenceName(), inf.getPosition());
-	    				}
-    				
-    				/*} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}*/
-    				
-    				basesExcludedByBaseq.addAndGet(tmpBasesExcludedByBaseq);
-    				basesExcludedByOverlap.addAndGet(tmpBasesExcludedByOverlap);
-    				basesExcludedByCapping.addAndGet(tmpBasesExcludedByCapping);
-    				for(int i = 0; i < baseQHistogramArray.length; i++) {
-    					baseQHistogramArray[i].addAndGet(tmpBaseQHistogramArray[i]);
-    				}
-    				for(int i = 0; i < HistogramArray.length; i++) {
-    					HistogramArray[i].addAndGet(tmpHistogramArray[i]);
-    				}
-    				
-    				//sem.release();
-    			}
-    		}); 
+            // 
 
             if (usingStopAfter && (counter += maxInfos) > stopAfter) break;
         }
