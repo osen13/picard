@@ -181,9 +181,9 @@ public class CollectWgsMetrics extends CommandLineProgram {
     	
     	int maxInfos = 100; //!
     	int threads = 4;//Runtime.getRuntime().availableProcessors();
-    	int sems = (int) (freeMem/(4*maxInfos*300*2));//8;
+    	int sems = (int) (freeMem/(20*maxInfos*300*2));//8;
     	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2));//!
-    	System.out.println("!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
+    	System.out.println("!" + sems + "!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
     	    	
         final ExecutorService service = Executors.newFixedThreadPool(threads); //!
         //final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
