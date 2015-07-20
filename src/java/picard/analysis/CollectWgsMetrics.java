@@ -181,15 +181,15 @@ public class CollectWgsMetrics extends CommandLineProgram {
     	
     	int maxInfos = 100; //!
     	int threads = 4;//Runtime.getRuntime().availableProcessors();
-    	int sems = threads;
-    	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2)); //!
+    	int sems = (int) (freeMem/(4*maxInfos*300*2));//8;
+    	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2));//!
     	System.out.println("!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
     	    	
         final ExecutorService service = Executors.newFixedThreadPool(threads); //!
         //final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
         
         List<SamLocusIterator.LocusInfo> infos = new ArrayList<SamLocusIterator.LocusInfo>(maxInfos); //!
-        //final Semaphore sem = new Semaphore(sems); //!
+        final Semaphore sem = new Semaphore(sems); //!
 
 		int count = 0;
         // Loop through all the loci
@@ -206,11 +206,11 @@ public class CollectWgsMetrics extends CommandLineProgram {
             if (++count < maxInfos) continue;
             count = 0;
             
-            /*try {
+            try {
 				sem.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}
             
             final List<SamLocusIterator.LocusInfo> tmpInfos = infos;
             /*try {
@@ -272,7 +272,7 @@ public class CollectWgsMetrics extends CommandLineProgram {
     					HistogramArray[i].addAndGet(tmpHistogramArray[i]);
     				}
     				
-    				//sem.release();
+    				sem.release();
     			}
     		}); 
 
