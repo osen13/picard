@@ -179,9 +179,9 @@ public class CollectWgsMetrics extends CommandLineProgram {
         //Runtime.getRuntime().availableProcessors();
         long freeMem = Runtime.getRuntime().freeMemory();
     	
-    	int maxInfos = 100; //!
+    	int maxInfos = 1000; //!
     	int threads = 4;//Runtime.getRuntime().availableProcessors();
-    	int sems = (int) (freeMem/(20*maxInfos*300*2));//8;
+    	int sems = 6;//(int) (freeMem/(20*maxInfos*300*2));//8;
     	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2));//!
     	System.out.println("!" + sems + "!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
     	    	
@@ -189,7 +189,7 @@ public class CollectWgsMetrics extends CommandLineProgram {
         //final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
         
         List<SamLocusIterator.LocusInfo> infos = new ArrayList<SamLocusIterator.LocusInfo>(maxInfos); //!
-        //final Semaphore sem = new Semaphore(sems); //!
+        final Semaphore sem = new Semaphore(sems); //!
 
 		int count = 0;
         // Loop through all the loci
@@ -203,14 +203,15 @@ public class CollectWgsMetrics extends CommandLineProgram {
             
             infos.add(info);
             
+            if (usingStopAfter && counter++ > stopAfter) break;
             if (++count < maxInfos) continue;
             count = 0;
             
-            /*try {
+            try {
 				sem.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}
             
             final List<SamLocusIterator.LocusInfo> tmpInfos = infos;
             /*try {
@@ -272,11 +273,11 @@ public class CollectWgsMetrics extends CommandLineProgram {
     					HistogramArray[i].addAndGet(tmpHistogramArray[i]);
     				}
     				
-    				//sem.release();
+    				sem.release();
     			}
     		}); 
 
-            if (usingStopAfter && (counter += maxInfos) > stopAfter) break;
+            //if (usingStopAfter && (counter += maxInfos) > stopAfter) break;
         }
         
         //!---
