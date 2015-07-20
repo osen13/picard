@@ -186,7 +186,7 @@ public class CollectWgsMetrics extends CommandLineProgram {
     	int sems = 6;
     	int queueCapacity = 10;//(int) (freeMem/(10*maxInfos*300*2)); //!
     	System.out.println("!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
-    	    	
+    	
         final ExecutorService service = Executors.newFixedThreadPool(threads); //!
         final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
         final Semaphore sem = new Semaphore(sems); //!
@@ -195,12 +195,10 @@ public class CollectWgsMetrics extends CommandLineProgram {
         	@Override
 			public void run() {
         		while(flag.get()) {
-	        		try {
-						sem.acquire();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-	        		
+        			if(queue.size() == 0) {
+    					continue;
+    				}	        
+        			
 			        service.submit(new Runnable() {
 			
 						@Override
@@ -214,9 +212,11 @@ public class CollectWgsMetrics extends CommandLineProgram {
 							try {
 			    				List<SamLocusIterator.LocusInfo> tmpInfos;
 								
-			    				if(queue.size() == 0) {
-			    					return;
-			    				}
+			    				try {
+									sem.acquire();
+								} catch (InterruptedException e) {
+									e.printStackTrace();
+								}
 								tmpInfos = queue.take();
 								
 			    				for(SamLocusIterator.LocusInfo inf: tmpInfos) {
