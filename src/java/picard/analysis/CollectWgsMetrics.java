@@ -177,13 +177,13 @@ public class CollectWgsMetrics extends CommandLineProgram {
         final AtomicLong basesExcludedByCapping = new AtomicLong(0);
         
         //Runtime.getRuntime().availableProcessors();
-        long freeMem = Runtime.getRuntime().freeMemory();
+        //long freeMem = Runtime.getRuntime().freeMemory();
     	
     	int maxInfos = 100; //!
     	int threads = 4;//Runtime.getRuntime().availableProcessors();
     	int sems = 6;//(int) (freeMem/(20*maxInfos*300*2));//8;
-    	int queueCapacity = (int) (freeMem/(2*maxInfos*300*2));//!
-    	System.out.println("!" + sems + "!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
+    	//int queueCapacity = (int) (freeMem/(2*maxInfos*300*2));//!
+    	//System.out.println("!" + sems + "!" + Runtime.getRuntime().availableProcessors() + "!" + queueCapacity + "!" + freeMem + "!");
     	    	
         final ExecutorService service = Executors.newFixedThreadPool(threads); //!
         //final BlockingQueue<List<SamLocusIterator.LocusInfo>> queue = new LinkedBlockingQueue<List<SamLocusIterator.LocusInfo>>(queueCapacity); //!
